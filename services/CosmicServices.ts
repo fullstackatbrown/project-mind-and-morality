@@ -13,6 +13,7 @@ interface CosmicMedia{
 }
 
 interface TeamMember {
+  id: string;
   title?: string;
   slug?: string;
 
@@ -21,6 +22,7 @@ interface TeamMember {
     role: string;
     description: string;
     undergraduate: boolean;
+    displayOrder: number;
 
     linkedin?: string;
     website?: string;
@@ -47,9 +49,13 @@ class CosmicServices {
             (member) => !member.metadata.undergraduate
         );
 
+        non_undergrads.sort((a, b) => a.metadata.displayOrder - b.metadata.displayOrder)
+
         const undergrads = raw_objects.filter(
             (member) => member.metadata.undergraduate
         );
+
+        undergrads.sort((a, b) => a.metadata.displayOrder - b.metadata.displayOrder)
 
         return [non_undergrads, undergrads];
     };
