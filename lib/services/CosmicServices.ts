@@ -6,7 +6,7 @@ import { cosmic } from "../cosmic";
 class CosmicServices {
     // method to fetch team members
     // each team member will have : slug, name, role, linkedin, website, description, email, profile-photo, cv, undergraduate (boolean) --- only required fields are name, role, description, and undergraduate
-    get_team_members = async () => {
+    getTeamMembers = async () => {
         const data = await cosmic.find({type: 'team-members'});
         return data.objects;
     };
