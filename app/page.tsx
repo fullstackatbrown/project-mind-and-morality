@@ -1,65 +1,160 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
+export default function ContactUs() {
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen w-full bg-white flex flex-col items-center">
+
+      <style>{`
+        .orange-text {
+          color:#E79121;
+        }
+
+        .field {
+          border-bottom:1.5px solid #0f766e;
+          padding-bottom:6px;
+          width:100%;
+        }
+
+        input, textarea{
+          outline:none;
+          background:transparent;
+          width:100%;
+          color:#0f766e;
+        }
+
+        input::placeholder,
+        textarea::placeholder{
+          color:#5eada8;
+        }
+      `}</style>
+
+
+      <nav className="w-full bg-[#b2e4e4] px-8 py-4 flex items-center justify-between">
+
+        <img src="" className="h-16"/>
+
+        <div className="flex gap-10 text-teal-800">
+
+          <a href="/">Home</a>
+          <a href="/team">Our Team</a>
+          <a href="/research">Research ▾</a>
+          <a href="/get-involved">Get Involved ▾</a>
+          <a href="/contact" className="font-semibold">Contact Us</a>
+
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+
+      </nav>
+
+      <section className="max-w-3xl w-full px-8 py-16">
+
+        <h1 className="text-4xl text-teal-600 text-center font-semibold mb-12">
+          Contact Us
+        </h1>
+
+        <div className="flex flex-col gap-8">
+
+          <div className="flex gap-8">
+
+            <div className="field">
+              <input type="text" placeholder="First Name"/>
+            </div>
+
+            <div className="field">
+              <input type="text" placeholder="Last Name"/>
+            </div>
+
+          </div>
+
+          <div className="field">
+            <input type="email" placeholder="Email*"/>
+          </div>
+
+          <div className="bg-[#c9eef0] rounded-3xl p-5">
+
+            <textarea
+              rows={7}
+              placeholder="Message"
+              className="resize-none"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+          </div>
+
+          <div className="flex justify-end">
+
+            <button className="bg-[#E79121] text-white px-10 py-3 rounded-full">
+              Send
+            </button>
+
+          </div>
+
         </div>
-      </main>
+
+      </section>
+
+      <footer className="w-full bg-gradient-to-b from-[#efe5c8] to-[#f0c67a] py-16 flex justify-center">
+
+        <div className="max-w-6xl w-full px-8 grid grid-cols-3 gap-12">
+
+          <div>
+
+            <h3 className="text-lg text-teal-800 font-semibold mb-4">
+              About Us
+            </h3>
+
+            <p className="text-teal-800 text-sm">
+              The Mind and Morality Lab is part of{" "}
+              <a className="underline">Brown Developmental Labs</a>, a group of research labs
+              in the{" "}
+              <a className="underline">Cognitive and Psychological Sciences Department</a>{" "}
+              at <a className="underline">Brown University</a> that study children and adolescents.
+            </p>
+
+          </div>
+
+          <div className="flex justify-center items-center gap-6 pt-6">
+
+            <a href="#" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-teal-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+              </svg>
+            </a>
+
+            <a href="#" aria-label="Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-teal-800" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+              </svg>
+            </a>
+
+            <a href="mailto:mindmoralitylab@brown.edu" aria-label="Email">
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 text-teal-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M3 8l9 6 9-6M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+            </a>
+
+          </div>
+
+          <div>
+
+            <h3 className="text-lg text-teal-800 font-semibold mb-4">
+              Contact Us
+            </h3>
+
+            <p className="text-teal-800 text-sm">
+              190 Thayer Street, Providence, RI 02912<br/>
+              mindmoralitylab@brown.edu<br/>
+              +1 (401) 863 3921<br/><br/>
+              © Mind and Morality Lab 2026
+            </p>
+
+          </div>
+
+        </div>
+
+      </footer>
+
     </div>
-  );
+  )
 }
