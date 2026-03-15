@@ -12,7 +12,7 @@ interface CosmicMedia{
   name?: string;
 }
 
-interface TeamMember {
+export interface TeamMember {
   id: string;
   title?: string;
   slug?: string;
