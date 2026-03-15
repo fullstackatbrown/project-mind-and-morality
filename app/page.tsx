@@ -25,7 +25,7 @@ export default function Home() {
         }
       `}</style>
 
-      <Header />
+      {/* <Header /> */}
 
       <section className="max-w-6xl w-full flex gap-16 py-16 px-8 items-center">
         <div className="relative w-[420px] h-[520px] rounded-3xl overflow-hidden">
@@ -117,7 +117,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   )
 }
