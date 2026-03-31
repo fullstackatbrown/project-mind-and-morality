@@ -25,19 +25,6 @@ export default function ContactUs() {
           color: #5eada8;
         }
       `}</style>{" "}
-      <nav className="w-full bg-[#b2e4e4] px-8 py-4 flex items-center justify-between">
-        {" "}
-        <img src="" className="h-16" />{" "}
-        <div className="flex gap-10 text-teal-800">
-          {" "}
-          <a href="/">Home</a> <a href="/team">Our Team</a>{" "}
-          <a href="/research">Research ▾</a>{" "}
-          <a href="/get-involved">Get Involved ▾</a>{" "}
-          <a href="/contact" className="font-semibold">
-            Contact Us
-          </a>{" "}
-        </div>{" "}
-      </nav>{" "}
       <section className="max-w-3xl w-full px-8 py-16">
         {" "}
         <h1 className="text-4xl text-teal-600 text-center font-semibold mb-12">
