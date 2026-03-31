@@ -34,6 +34,12 @@ export default function Header() {
             </li>
 
             <li>
+              <Link href="/news" className="transition-opacity hover:opacity-80">
+                News
+              </Link>
+            </li>
+
+            <li>
               <button className="flex items-center gap-1 transition-opacity hover:opacity-80">
                 Get Involved
                 <span className="text-sm">▼</span>
