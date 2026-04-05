@@ -26,7 +26,7 @@ interface TeamMember {
     role: string;
     description: string;
     undergraduate: boolean;
-    displayOrder: number;
+    displayOrder?: number;
 
     linkedin?: string;
     website?: string;
@@ -89,13 +89,24 @@ class CosmicServices {
               (member) => !member.metadata.undergraduate
           );
 
-          non_undergrads.sort((a, b) => a.metadata.displayOrder - b.metadata.displayOrder)
+          non_undergrads.sort((a, b) => {
+              const orderA = a.metadata.displayOrder ?? Number.MAX_SAFE_INTEGER;
+              const orderB = b.metadata.displayOrder ?? Number.MAX_SAFE_INTEGER;
+
+              return orderA - orderB;
+
+          })
 
           const undergrads = raw_objects.filter(
               (member) => member.metadata.undergraduate
           );
 
-          undergrads.sort((a, b) => a.metadata.displayOrder - b.metadata.displayOrder)
+          undergrads.sort((a, b) => {
+              const orderA = a.metadata.displayOrder ?? Number.MAX_SAFE_INTEGER;
+              const orderB = b.metadata.displayOrder ?? Number.MAX_SAFE_INTEGER;
+
+              return orderA - orderB;
+          })
 
           return [non_undergrads, undergrads];
         } catch {
