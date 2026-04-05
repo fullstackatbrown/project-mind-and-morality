@@ -1,0 +1,142 @@
+// COSMIC TYPES
+
+// interface for a TeamMember -- should be moved to a types.ts file, but placed here for now
+/**
+ * @param  url 
+ * url for the image/media
+ * @param imgix_url
+ * imgix_url cdn optimized image url, lets you add query params for resizing, compression, and cropping
+ * @param name
+ * original filename if needed
+ */
+export interface CosmicMedia{
+  url: string;
+  imgix_url?: string;
+  name?: string;
+}
+
+/**
+ * @param id
+ * cosmic object id for the team member entry
+ * @param title
+ * content title set in Cosmic
+ * @param slug
+ * url-safe slug for routing and lookups
+ * @param status
+ * object status in Cosmic (typically published or draft)
+ * @param metadata.name
+ * full display name of the team member
+ * @param metadata.role
+ * role/title shown on the team page
+ * @param metadata.description
+ * short biography or profile description
+ * @param metadata.undergraduate
+ * true when the member is an undergraduate student
+ * @param metadata.displayOrder
+ * optional sort order used for manual ordering in UI
+ * @param metadata.linkedin
+ * optional linkedin profile URL
+ * @param metadata.website
+ * optional personal or lab website URL
+ * @param metadata.email
+ * optional contact email address
+ * @param metadata.cv
+ * optional uploaded CV/resume media object
+ * @param metadata.profilePhoto
+ * optional profile image media object
+ */
+export interface TeamMember {
+  id: string;
+  title?: string;
+  slug?: string;
+  status: string; // published or draft
+
+  metadata: {
+    name: string;
+    role: string;
+    description: string;
+    undergraduate: boolean;
+    displayOrder?: number;
+
+    linkedin?: string;
+    website?: string;
+    email?: string;
+    cv?: CosmicMedia;
+
+    profilePhoto?: CosmicMedia;
+  };
+}
+
+/**
+ * @param id
+ * cosmic object id for the news post
+ * @param title
+ * content title set in Cosmic
+ * @param slug
+ * url-safe slug for routing and lookups
+ * @param created_at
+ * ISO timestamp when the object was created in Cosmic
+ * @param modified_at
+ * ISO timestamp when the object was last modified in Cosmic
+ * @param metadata.publish_date
+ * publish date string from Cosmic metadata
+ * @param metadata.featured_image
+ * featured image media object for listing cards
+ * @param metadata.summary
+ * short article summary used in previews
+ */
+export interface NewsPostThumbnailRaw {
+  id: string;
+  title?: string;
+  slug?: string;
+  created_at: string;
+  modified_at: string; 
+
+  metadata: {
+    publish_date : string;
+    featured_image: CosmicMedia;
+    summary: string;
+  };
+}
+
+/**
+ * @param metadata.content
+ * full article body as an HTML string
+ */
+export interface NewsPostRaw extends NewsPostThumbnailRaw {
+  metadata: NewsPostThumbnailRaw['metadata'] & {
+    content: string; 
+  };
+}
+
+/**
+ * @param created_at
+ * creation timestamp converted to a Date object
+ * @param modified_at
+ * modification timestamp converted to a Date object
+ * @param metadata.publish_date
+ * publish date converted to a Date object
+ */
+export interface NewsPostThumbnail extends Omit<NewsPostThumbnailRaw, "created_at" | "modified_at" | "metadata"> {
+  created_at: Date;
+  modified_at : Date;
+  metadata: Omit<NewsPostThumbnailRaw["metadata"], "publish_date"> & {
+    publish_date : Date;
+  }
+}
+
+/**
+ * @param created_at
+ * creation timestamp converted to a Date object
+ * @param modified_at
+ * modification timestamp converted to a Date object
+ * @param metadata.publish_date
+ * publish date converted to a Date object
+ */
+export interface NewsPost extends Omit<NewsPostRaw, "created_at" | "modified_at" | "metadata"> {
+  created_at: Date;
+  modified_at: Date;
+  metadata: Omit<NewsPostRaw["metadata"], "publish_date"> & {
+    publish_date : Date;
+  }
+}
