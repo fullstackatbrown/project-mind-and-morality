@@ -2,6 +2,12 @@ import { cosmic } from "../lib/cosmic";
 import { TeamMember, NewsPost, NewsPostRaw, NewsPostThumbnail, NewsPostThumbnailRaw, ResearchPublication, ResearchQuestion, ResearchTopic, ResearchTopicsAndPublications, ResearchTopicsPage} from "./CosmicTypes";
 
 
+const compareStrings = (first?: string, second?: string) =>
+  (first ?? "").localeCompare(second ?? "", undefined, { sensitivity: "base" });
+
+const compareNumbers = (first?: number, second?: number) => (first ?? 0) - (second ?? 0);
+
+
 
 // CLASS TO INTERACT WITH COSMIC BACKEND (for now one file but can split into multiple if gets too big)
 
@@ -26,7 +32,17 @@ class CosmicServices {
               const orderA = a.metadata.displayOrder ?? Number.MAX_SAFE_INTEGER;
               const orderB = b.metadata.displayOrder ?? Number.MAX_SAFE_INTEGER;
 
-              return orderA - orderB;
+              if (orderA !== orderB) {
+                return orderA - orderB;
+              }
+
+              const byName = compareStrings(a.metadata.name, b.metadata.name);
+
+              if (byName !== 0) {
+                return byName;
+              }
+
+              return compareStrings(a.id, b.id);
 
           })
 
@@ -38,7 +54,17 @@ class CosmicServices {
               const orderA = a.metadata.displayOrder ?? Number.MAX_SAFE_INTEGER;
               const orderB = b.metadata.displayOrder ?? Number.MAX_SAFE_INTEGER;
 
-              return orderA - orderB;
+              if (orderA !== orderB) {
+                return orderA - orderB;
+              }
+
+              const byName = compareStrings(a.metadata.name, b.metadata.name);
+
+              if (byName !== 0) {
+                return byName;
+              }
+
+              return compareStrings(a.id, b.id);
           })
 
           return [non_undergrads, undergrads];
@@ -90,7 +116,29 @@ class CosmicServices {
               publish_date: new Date(thumbnail.metadata.publish_date)
             }
           }
-        ))
+        ));
+
+        thumbnails.sort((first, second) => {
+          const publishDateDiff = second.metadata.publish_date.getTime() - first.metadata.publish_date.getTime();
+
+          if (publishDateDiff !== 0) {
+            return publishDateDiff;
+          }
+
+          const createdAtDiff = second.created_at.getTime() - first.created_at.getTime();
+
+          if (createdAtDiff !== 0) {
+            return createdAtDiff;
+          }
+
+          const titleDiff = compareStrings(first.title, second.title);
+
+          if (titleDiff !== 0) {
+            return titleDiff;
+          }
+
+          return compareStrings(first.id, second.id);
+        });
 
         return thumbnails;
       } catch {
@@ -153,10 +201,10 @@ class CosmicServices {
           const topics = raw_topics_data.objects as ResearchTopic[];
 
           // gert publications, sorted by the year they were published
-          const raw_publications_data = await cosmic.objects.find({type: "research-publications"}).status("published").sort("-year_published");
+          const raw_publications_data = await cosmic.objects.find({type: "research-publications"}).status("published").sort("-metadata.year_published");
           const publications = raw_publications_data.objects as ResearchPublication[];
           
-          const map = new Map();
+          const map = new Map<string, ResearchTopicsAndPublications>();
 
           topics.forEach(topic => {
             map.set(topic.id, {
@@ -170,25 +218,42 @@ class CosmicServices {
             const topic = publication.metadata.topic;
 
             if (topic && map.has(topic.id)) {
+              const topicGroup = map.get(topic.id);
+
+              if (!topicGroup) {
+                return;
+              }
+
               if (publication.metadata.starred) {
-                map.get(topic.id).starred_publications.push(publication);
+                topicGroup.starred_publications.push(publication);
               } else {
-                map.get(topic.id).unstarred_publications.push(publication);
+                topicGroup.unstarred_publications.push(publication);
               }
             }
           });
 
-          const research_topics_and_pubs = map.values() as unknown as ResearchTopicsAndPublications[];
+          const research_topics_and_pubs = Array.from(map.values());
+
 
           // sort the topics
           research_topics_and_pubs.sort((top1, top2) => {
             let top1_order = top1.topic.metadata.display_order ?? Number.MAX_SAFE_INTEGER - 1;
-            let top2_order = top1.topic.metadata.display_order ?? Number.MAX_SAFE_INTEGER - 1;
+            let top2_order = top2.topic.metadata.display_order ?? Number.MAX_SAFE_INTEGER - 1;
 
             top1_order += top1.topic.title === "Other" ? 1 : 0;
             top2_order += top2.topic.title === "Other" ? 1 : 0;
 
-            return top1_order - top2_order;
+            if (top1_order !== top2_order) {
+              return top1_order - top2_order;
+            }
+
+            const titleDiff = compareStrings(top1.topic.title, top2.topic.title);
+
+            if (titleDiff !== 0) {
+              return titleDiff;
+            }
+
+            return compareStrings(top1.topic.id, top2.topic.id);
           });
 
           return research_topics_and_pubs;
@@ -203,6 +268,29 @@ class CosmicServices {
       // getResearchTopicsPage -> [ResearchTopicsPage, ResearchQuestions[]]
       getResearchTopicsPage = async () : Promise<[ResearchTopicsPage, ResearchQuestion[]] | null> => {
           try {
+            const raw_questions_data = await cosmic.objects.find({type: "research-questions"}).status("published").sort("metadata.display_order");
+            const questions = raw_questions_data.objects as ResearchQuestion[];
+
+            questions.sort((first, second) => {
+              const orderDiff = compareNumbers(first.metadata.display_order, second.metadata.display_order);
+
+              if (orderDiff !== 0) {
+                return orderDiff;
+              }
+
+              const titleDiff = compareStrings(first.title, second.title);
+
+              if (titleDiff !== 0) {
+                return titleDiff;
+              }
+
+              return compareStrings(first.id, second.id);
+            });
+
+            const raw_topics_page_data = await cosmic.objects.findOne({type: "research-topics-page"});
+            const topics_page = raw_topics_page_data.object as ResearchTopicsPage;
+
+            return [topics_page, questions];
 
           } catch {
             return null;
