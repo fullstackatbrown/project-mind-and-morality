@@ -106,7 +106,8 @@ export interface NewsPostThumbnailRaw {
 }
 
 /**
- * A NewsPostRaw that has its dates as strings rather than Dates. Inherits from NewsPostThumbnailRaw
+ * A NewsPostRaw that has its dates as strings rather than Dates.
+ * @inheritDoc NewsPostThumbnailRaw
  * @param metadata.content
  * full article body as an HTML string
  */
@@ -136,21 +137,14 @@ export interface NewsPostThumbnail extends Omit<
 }
 
 /**
- * @param created_at
- * creation timestamp converted to a Date object
- * @param modified_at
- * modification timestamp converted to a Date object
- * @param metadata.publish_date
- * publish date converted to a Date object
+ * A NewsPost that extends NewsPostThumbnail and adds full article content.
+ * @inheritDoc NewsPostThumbnail
+ * @param metadata.content
+ * full article body as an HTML string
  */
-export interface NewsPost extends Omit<
-  NewsPostRaw,
-  "created_at" | "modified_at" | "metadata"
-> {
-  created_at: Date;
-  modified_at: Date;
-  metadata: Omit<NewsPostRaw["metadata"], "publish_date"> & {
-    publish_date: Date;
+export interface NewsPost extends NewsPostThumbnail {
+  metadata: NewsPostThumbnail["metadata"] & {
+    content: string;
   };
 }
 
@@ -158,6 +152,8 @@ export interface NewsPost extends Omit<
 
 /**
  * Interface for a research topic entry used to group publications and order topics on the page.
+ * @param id
+ * cosmic object id for the research topic entry
  * @param slug
  * url-safe slug for routing and lookups
  * @param title
@@ -166,6 +162,7 @@ export interface NewsPost extends Omit<
  * optional manual sort order for displaying topics
  */
 export interface ResearchTopic {
+  id: string;
   slug: string;
   title: string;
   metadata: {
@@ -175,6 +172,8 @@ export interface ResearchTopic {
 
 /**
  * Interface for a research publication entry used in topic publication lists.
+ * @param id
+ * cosmic object id for the research publication entry
  * @param slug
  * url-safe slug for routing and lookups
  * @param title
@@ -191,6 +190,7 @@ export interface ResearchTopic {
  * true when the publication should be highlighted as starred
  */
 export interface ResearchPublication {
+  id: string;
   slug: string;
   title: string;
   metadata: {
@@ -199,25 +199,29 @@ export interface ResearchPublication {
     link?: string;
     citation_suffix: string;
     starred: boolean;
+    year_published: number;
   };
 }
 
 /**
  * Interface for grouping a research topic with its related publications.
- * @param metadata.topic
+ * @param topic
  * topic entry for this publication group
- * @param metadata.publications
- * list of publications associated with the topic
+ * @param starred_publications
+ * list of publications associated with the topic that are starred
+ * @param unstarred_publications 
+ * list of publications associated with the topic that aren't starred
  */
 export interface ResearchTopicsAndPublications {
-  metadata: {
-    topic: ResearchTopic;
-    publications: ResearchPublication[];
-  };
+  topic: ResearchTopic;
+  starred_publications: ResearchPublication[];
+  unstarred_publications: ResearchPublication[];
 }
 
 /**
  * Interface for a research question entry shown on research content pages.
+ * @param id
+ * cosmic object id for the research question entry
  * @param slug
  * url-safe slug for routing and lookups
  * @param title
@@ -230,6 +234,7 @@ export interface ResearchTopicsAndPublications {
  * optional manual sort order for rendering questions
  */
 export interface ResearchQuestion {
+  id: string;
   slug: string;
   title: string;
   metadata: {
@@ -251,6 +256,8 @@ export interface ResearchQuestion {
  * second page graphic/media asset
  */
 export interface ResearchTopicsPage {
+  title: string;
+  slug: string;
   metadata: {
     page_description_heading: string;
     page_description: string;

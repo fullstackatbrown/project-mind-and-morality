@@ -1,5 +1,5 @@
 import { cosmic } from "../lib/cosmic";
-import { TeamMember, NewsPost, NewsPostRaw, NewsPostThumbnail, NewsPostThumbnailRaw } from "./CosmicTypes";
+import { TeamMember, NewsPost, NewsPostRaw, NewsPostThumbnail, NewsPostThumbnailRaw, ResearchPublication, ResearchQuestion, ResearchTopic, ResearchTopicsAndPublications, ResearchTopicsPage} from "./CosmicTypes";
 
 
 
@@ -142,6 +142,72 @@ class CosmicServices {
       }
       
 
+      // CALLS FOR RESEARCH PAGES
+      /**
+       * 
+       */
+      getResearchTopicsAndPublications = async () : Promise<ResearchTopicsAndPublications[] | null> => {
+        try {
+          // get topics ('research-topics')
+          const raw_topics_data = await cosmic.objects.find({type: "research-topics"}).status("published");
+          const topics = raw_topics_data.objects as ResearchTopic[];
+
+          // gert publications, sorted by the year they were published
+          const raw_publications_data = await cosmic.objects.find({type: "research-publications"}).status("published").sort("-year_published");
+          const publications = raw_publications_data.objects as ResearchPublication[];
+          
+          const map = new Map();
+
+          topics.forEach(topic => {
+            map.set(topic.id, {
+              topic,
+              starred_publications : [],
+              unstarred_publications : []
+            });
+          });
+          
+          publications.forEach(publication => {
+            const topic = publication.metadata.topic;
+
+            if (topic && map.has(topic.id)) {
+              if (publication.metadata.starred) {
+                map.get(topic.id).starred_publications.push(publication);
+              } else {
+                map.get(topic.id).unstarred_publications.push(publication);
+              }
+            }
+          });
+
+          const research_topics_and_pubs = map.values() as unknown as ResearchTopicsAndPublications[];
+
+          // sort the topics
+          research_topics_and_pubs.sort((top1, top2) => {
+            let top1_order = top1.topic.metadata.display_order ?? Number.MAX_SAFE_INTEGER - 1;
+            let top2_order = top1.topic.metadata.display_order ?? Number.MAX_SAFE_INTEGER - 1;
+
+            top1_order += top1.topic.title === "Other" ? 1 : 0;
+            top2_order += top2.topic.title === "Other" ? 1 : 0;
+
+            return top1_order - top2_order;
+          });
+
+          return research_topics_and_pubs;
+
+        } catch {
+          return null;
+        }
+      }
+      /**
+       * 
+       */
+      // getResearchTopicsPage -> [ResearchTopicsPage, ResearchQuestions[]]
+      getResearchTopicsPage = async () : Promise<[ResearchTopicsPage, ResearchQuestion[]] | null> => {
+          try {
+
+          } catch {
+            return null;
+          }
+      }
 
 
 }
