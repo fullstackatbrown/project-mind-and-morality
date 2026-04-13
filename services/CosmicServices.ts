@@ -15,9 +15,25 @@ import {
   HomePage
 } from "./CosmicTypes";
 
+/**
+ * Compare two strings case-insensitively, treating missing values as empty strings.
+ * @param first
+ * first string to compare
+ * @param second
+ * second string to compare
+ * @returns negative when first sorts before second, positive when after, or 0 when equivalent
+ */
 const compareStrings = (first?: string, second?: string) =>
   (first ?? "").localeCompare(second ?? "", undefined, { sensitivity: "base" });
 
+/**
+ * Compare two numbers, treating missing values as 0.
+ * @param first
+ * first number to compare
+ * @param second
+ * second number to compare
+ * @returns negative when first is smaller, positive when larger, or 0 when equal
+ */
 const compareNumbers = (first?: number, second?: number) =>
   (first ?? 0) - (second ?? 0);
 
@@ -341,7 +357,9 @@ class CosmicServices {
   };
 
   /**
-   * 
+    * Get the static home page content from Cosmic.
+    *
+    * @returns the home page content, or null if fetch fails
    */
   getHomePage = async () : Promise<HomePage | null> => {
     try {
@@ -358,7 +376,9 @@ class CosmicServices {
   }
 
   /**
-   * 
+    * Get the student get involved page content from Cosmic.
+    *
+    * @returns the student involvement page content, or null if fetch fails
    */
   getStudentInvolvementPage = async () : Promise<GetInvolvedStudentsPage | null> => {
     try {
@@ -375,7 +395,9 @@ class CosmicServices {
   }
 
   /**
-   * 
+    * Get the families get involved page content from Cosmic.
+    *
+    * @returns the families involvement page content, or null if fetch fails
    */
   getFamilyInvolvementPage = async () : Promise<GetInvolvedFamiliesPage | null> => {
     try {
