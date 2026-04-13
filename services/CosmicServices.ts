@@ -10,6 +10,9 @@ import {
   ResearchTopic,
   ResearchTopicsAndPublications,
   ResearchTopicsPage,
+  GetInvolvedFamiliesPage,
+  GetInvolvedStudentsPage,
+  HomePage
 } from "./CosmicTypes";
 
 const compareStrings = (first?: string, second?: string) =>
@@ -336,6 +339,57 @@ class CosmicServices {
       return null;
     }
   };
+
+  /**
+   * 
+   */
+  getHomePage = async () : Promise<HomePage | null> => {
+    try {
+      const raw_home_page = await cosmic.objects.findOne({
+        type: 'home-page'
+      });
+      const home_page = raw_home_page.object as HomePage;
+
+      return home_page;
+
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * 
+   */
+  getStudentInvolvementPage = async () : Promise<GetInvolvedStudentsPage | null> => {
+    try {
+      const raw_student_involvement_page = await cosmic.objects.findOne({
+        type: 'get-involved-students-page'
+      });
+      const student_involvement_page = raw_student_involvement_page.object as GetInvolvedStudentsPage;
+
+      return student_involvement_page;
+
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * 
+   */
+  getFamilyInvolvementPage = async () : Promise<GetInvolvedFamiliesPage | null> => {
+    try {
+       const raw_family_involvement_page = await cosmic.objects.findOne({
+        type: 'get-involved-families-page'
+      });
+      const family_involvement_page = raw_family_involvement_page.object as GetInvolvedFamiliesPage;
+
+      return family_involvement_page;
+
+    } catch {
+      return null;
+    }
+  }
 }
 
 export default CosmicServices;
