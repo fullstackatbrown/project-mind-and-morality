@@ -10,11 +10,30 @@ import {
   ResearchTopic,
   ResearchTopicsAndPublications,
   ResearchTopicsPage,
+  GetInvolvedFamiliesPage,
+  GetInvolvedStudentsPage,
+  HomePage
 } from "./CosmicTypes";
 
+/**
+ * Compare two strings case-insensitively, treating missing values as empty strings.
+ * @param first
+ * first string to compare
+ * @param second
+ * second string to compare
+ * @returns negative when first sorts before second, positive when after, or 0 when equivalent
+ */
 const compareStrings = (first?: string, second?: string) =>
   (first ?? "").localeCompare(second ?? "", undefined, { sensitivity: "base" });
 
+/**
+ * Compare two numbers, treating missing values as 0.
+ * @param first
+ * first number to compare
+ * @param second
+ * second number to compare
+ * @returns negative when first is smaller, positive when larger, or 0 when equal
+ */
 const compareNumbers = (first?: number, second?: number) =>
   (first ?? 0) - (second ?? 0);
 
@@ -336,6 +355,63 @@ class CosmicServices {
       return null;
     }
   };
+
+  /**
+    * Get the static home page content from Cosmic.
+    *
+    * @returns the home page content, or null if fetch fails
+   */
+  getHomePage = async () : Promise<HomePage | null> => {
+    try {
+      const raw_home_page = await cosmic.objects.findOne({
+        type: 'home-page'
+      });
+      const home_page = raw_home_page.object as HomePage;
+
+      return home_page;
+
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+    * Get the student get involved page content from Cosmic.
+    *
+    * @returns the student involvement page content, or null if fetch fails
+   */
+  getStudentInvolvementPage = async () : Promise<GetInvolvedStudentsPage | null> => {
+    try {
+      const raw_student_involvement_page = await cosmic.objects.findOne({
+        type: 'get-involved-students-page'
+      });
+      const student_involvement_page = raw_student_involvement_page.object as GetInvolvedStudentsPage;
+
+      return student_involvement_page;
+
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+    * Get the families get involved page content from Cosmic.
+    *
+    * @returns the families involvement page content, or null if fetch fails
+   */
+  getFamilyInvolvementPage = async () : Promise<GetInvolvedFamiliesPage | null> => {
+    try {
+       const raw_family_involvement_page = await cosmic.objects.findOne({
+        type: 'get-involved-families-page'
+      });
+      const family_involvement_page = raw_family_involvement_page.object as GetInvolvedFamiliesPage;
+
+      return family_involvement_page;
+
+    } catch {
+      return null;
+    }
+  }
 }
 
 export default CosmicServices;
