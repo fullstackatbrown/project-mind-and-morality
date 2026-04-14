@@ -1,12 +1,13 @@
-import Cosmic from 'cosmicjs';
-import 'dotenv/config';
+import { createBucketClient } from '@cosmicjs/sdk';
 
 if (!process.env.COSMIC_BUCKET_SLUG) {
-    throw new Error("Missing COSMIC_BUCKET_SLUG environment variable")
+    throw new Error("Missing COSMIC_BUCKET_SLUG environment variable");
+}
+if (!process.env.COSMIC_READ_KEY) {
+    throw new Error("Missing COSMIC_READ_KEY environment variable");
 }
 
-export const cosmic = Cosmic({
-    bucket: process.env.COSMIC_BUCKET_SLUG,
-    read_key: process.env.COSMIC_READ_KEY,
-    write_key: process.env.COSMIC_WRITE_KEY
-})
+export const cosmic = createBucketClient({
+    bucketSlug: process.env.COSMIC_BUCKET_SLUG,
+    readKey: process.env.COSMIC_READ_KEY,
+});
