@@ -432,7 +432,6 @@ class CosmicServices {
           last_name: submission.last_name,
           email: submission.email,
           message: submission.message,
-          submitted_at: new Date().toISOString(),
         },
       });
       return true;
