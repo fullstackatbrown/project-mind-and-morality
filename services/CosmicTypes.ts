@@ -429,3 +429,21 @@ export interface GetInvolvedFamiliesPage {
     opportunities: GetInvolvedFamiliesItem[];
   }
 }
+
+/**
+ * Interface for a contact form submission.
+ * @param first_name
+ * first name of the person submitting the form
+ * @param last_name
+ * last name of the person submitting the form
+ * @param email
+ * email address of the person submitting the form
+ * @param message
+ * message content from the form submission
+ */
+export interface ContactFormSubmission {
+  first_name: string;
+  last_name: string;
+  email: string;
+  message: string;
+}

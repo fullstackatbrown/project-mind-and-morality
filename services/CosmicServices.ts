@@ -13,7 +13,8 @@ import {
   GetInvolvedFamiliesPage,
   GetInvolvedStudentsPage,
   HomePage,
-  TeamPageGroups
+  TeamPageGroups,
+  ContactFormSubmission
 } from "./CosmicTypes";
 
 /**
@@ -414,6 +415,31 @@ class CosmicServices {
       return null;
     }
   }
+
+  /**
+   * method to submit a contact form entry to Cosmic
+   *
+   * @param submission the contact form submission data
+   * @returns true if successful, false otherwise
+   */
+  submitContactForm = async (submission: ContactFormSubmission): Promise<boolean> => {
+    try {
+      await cosmic.objects.insertOne({
+        type: "contact-form-submissions",
+        title: `Contact from ${submission.first_name} ${submission.last_name}`,
+        metadata: {
+          first_name: submission.first_name,
+          last_name: submission.last_name,
+          email: submission.email,
+          message: submission.message,
+          submitted_at: new Date().toISOString(),
+        },
+      });
+      return true;
+    } catch {
+      return false;
+    }
+  };
 }
 
 export default CosmicServices;
