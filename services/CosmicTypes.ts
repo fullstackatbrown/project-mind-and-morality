@@ -71,7 +71,17 @@ export interface TeamMember {
   };
 }
 /**
- * 
+ * Interface for grouping team members by role for rendering on the team page.
+ * @param lab_directors
+ * list of team members categorized as lab directors
+ * @param post_doctoral_researchers
+ * list of team members categorized as post-doctoral researchers
+ * @param graduate_students
+ * list of team members categorized as graduate students
+ * @param lab_managers
+ * list of team members categorized as lab managers
+ * @param undergrads
+ * list of team members categorized as undergraduate students
  */
 export interface TeamPageGroups {
   lab_directors : TeamMember[];
