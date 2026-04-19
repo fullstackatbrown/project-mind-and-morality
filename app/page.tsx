@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { useState, useEffect } from "react"
+import InstagramPostCard from "@/components/InstagramPostCard"
 
 export default function Home() {
 
@@ -30,9 +31,9 @@ export default function Home() {
       }
     `}</style>
 
-    <section className="max-w-6xl w-full flex gap-16 py-16 px-8 items-center">
+    <section className="max-w-6xl w-full flex flex-col md:flex-row gap-16 py-16 px-8 items-center">
 
-    <div className="relative w-[420px] h-[520px] rounded-3xl overflow-hidden">
+    <div className="relative w-full aspect-video md:w-[420px] md:h-[520px] md:aspect-auto flex-shrink-0 rounded-3xl overflow-hidden">
 
     <Image
       src={slides[current]}
@@ -69,7 +70,7 @@ export default function Home() {
 
     </section>
 
-    <section className="w-full bg-[#e9d6b7] py-16 flex justify-center">
+    <section className="w-full bg-[#FEEFD6] py-16 flex justify-center">
 
     <div className="max-w-6xl w-full px-8">
 
@@ -77,31 +78,10 @@ export default function Home() {
     News & Announcements
     </h2>
 
-    <div className="grid grid-cols-3 gap-10">
-
-    {[1,2,3].map((item)=>(
-    <div
-    key={item}
-    className="bg-[#f0a83b] rounded-3xl p-5 text-center"
-    >
-
-    <div className="h-44 bg-gray-300 rounded-2xl mb-5"></div>
-
-    <h3 className="text-white font-semibold">
-    We're Hiring for a Lab Manager
-    </h3>
-
-    <p className="text-white text-sm mt-2">
-    07/01/2025
-    </p>
-
-    <button className="mt-4 bg-white orange-text px-4 py-1 rounded-full text-sm">
-    Read More
-    </button>
-
-    </div>
-    ))}
-
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+      <InstagramPostCard caption="Excited to share our latest findings on moral development in children!" likes={142} />
+      <InstagramPostCard caption="We're hiring a Lab Manager — come join our team at Brown University!" likes={98} />
+      <InstagramPostCard caption="New publication out now. Check the link in our bio for the full paper." likes={211} />
     </div>
 
     </div>
@@ -110,19 +90,19 @@ export default function Home() {
 
     <section className="max-w-6xl w-full py-20 px-8">
 
-    <div className="grid grid-cols-3 gap-12 text-teal-800">
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
 
-    {["Research Topics","Participate With Your Child","Prospective Students"].map((title)=>(
-    <div key={title}>
+      <div className="flex flex-col gap-3">
+        <img src="/homepagebottomsection/ResearchTopicsImage.png" alt="Research Topics" className="w-full rounded-3xl object-cover" />
+      </div>
 
-    <h3 className="text-lg font-semibold mb-4">
-    {title}
-    </h3>
+      <div className="flex flex-col gap-3">
+        <img src="/homepagebottomsection/ParticipateImage.png" alt="Participate With Your Child" className="w-full rounded-3xl object-cover" />
+      </div>
 
-    <div className="h-44 bg-gray-300 border-2 border-teal-500 rounded-3xl"></div>
-
-    </div>
-    ))}
+      <div className="flex flex-col gap-3">
+        <img src="/homepagebottomsection/ProspectiveStudentsImage.png" alt="Prospective Students" className="w-full rounded-3xl object-cover" />
+      </div>
 
     </div>
 
