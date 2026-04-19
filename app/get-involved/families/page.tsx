@@ -10,7 +10,81 @@ const dmSans = DM_Sans({
 export default function GetInvolvedFamiliesPage() {
   return (
     <main className={`${dmSans.className} w-full bg-[#f5f5f5] text-[#459a9f]`}>
-      <div className="mx-auto max-w-[1512px] px-6 pb-24 pt-10 md:px-8 md:pb-28 md:pt-14 lg:px-0 lg:pb-[40px] lg:pt-[90px]">
+      <div className="mx-auto w-full max-w-[402px] px-[10%] pb-5 pt-10 md:hidden">
+        <h1 className="text-center text-[22px] font-bold leading-none tracking-[-0.09em] text-[#459a9f]">
+          Get Involved for Families
+        </h1>
+
+        <p className="mx-auto mt-6 max-w-[251px] text-center text-[16px] font-black leading-[21px] text-[#e79121]">
+          There are many ways to get involved in research!
+        </p>
+      </div>
+
+      <section className="relative bg-[#bcf1f5] py-6 md:hidden">
+        <Image
+          src="/get-involved-families/arrow-left.svg"
+          alt="Previous"
+          width={19}
+          height={31}
+          className="absolute left-[4.5%] top-1/2 h-[31px] w-[19px] -translate-y-1/2"
+        />
+        <Image
+          src="/get-involved-families/arrow-right.svg"
+          alt="Next"
+          width={19}
+          height={31}
+          className="absolute right-[4.5%] top-1/2 h-[31px] w-[19px] -translate-y-1/2"
+        />
+
+        <div className="mx-auto w-full max-w-[402px] px-[10%] pb-2">
+          <Image
+            src="/get-involved-families/in-person-studies.png"
+            alt="Researcher and child participating in an in-person study"
+            width={250}
+            height={250}
+            className="mx-auto h-auto w-full max-w-[250px] object-cover"
+            priority
+          />
+
+          <h2 className="mx-auto mt-7 max-w-[250px] text-[22px] font-bold leading-none tracking-[-0.02em] text-[#459a9f]">
+            In Person Studies
+          </h2>
+
+          <p className="mx-auto mt-4 max-w-[250px] text-[14px] font-medium leading-[21px] text-[#459a9f]">
+            Live in Providence or the surrounding area? While the Mind and
+            Morality Lab is not currently conducting in-person studies, other
+            labs in our research group have several active in-person studies
+            that are currently recruiting children of various ages. If you&apos;re
+            interested in in-person studies, check out the other developmental
+            labs at Brown or click the button to the right to be added to the
+            general in-person contact list.
+          </p>
+
+          <Link
+            href="https://sites.brown.edu/devlabs/"
+            target="_blank"
+            rel="noreferrer"
+            className="mx-auto mt-5 flex h-[34px] w-fit items-center rounded-[20px] bg-white pl-2 pr-4 text-[14px] font-medium leading-[21px] text-[#459a9f]"
+          >
+            <Image
+              src="/get-involved-families/form-icon.svg"
+              alt="Form icon"
+              width={18}
+              height={18}
+              className="mr-1.5 h-[18px] w-[18px]"
+            />
+            Dev Labs Interest Form
+          </Link>
+
+          <div className="mt-6 flex items-center justify-center gap-[7px]">
+            <span className="h-[10px] w-[10px] rounded-full bg-[#e79121]" />
+            <span className="h-[10px] w-[10px] rounded-full bg-[#459a9f]" />
+            <span className="h-[10px] w-[10px] rounded-full bg-[#459a9f]" />
+          </div>
+        </div>
+      </section>
+
+      <div className="mx-auto hidden max-w-[1512px] px-6 pb-24 pt-10 md:block md:px-8 md:pb-28 md:pt-14 lg:px-0 lg:pb-[40px] lg:pt-[90px]">
         <h1 className="mb-8 text-center text-[40px] font-bold leading-[1.1] tracking-[-0.02em] text-[#459a9f] md:text-[50px] md:tracking-[-1px]">
           Get Involved for Families
         </h1>
