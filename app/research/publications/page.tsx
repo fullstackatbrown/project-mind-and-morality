@@ -40,7 +40,7 @@ const publicationToPaper = (publication: ResearchPublication): Paper => ({
     authors: publication.metadata.citation_prefix,
     year: publication.metadata.year_published,
     journal: normalizeSuffix(publication.metadata.citation_suffix),
-    topic: publication.metadata.topic?.title ?? "Other",
+    topic: publication.metadata.topic,
     featured: publication.metadata.starred,
     link: publication.metadata.link,
 });
@@ -77,7 +77,6 @@ export default function PublicationsPage() {
                     | { error: string };
 
                 if ("data" in json) {
-                    console.log(json);
                     setPublicationsPage(json.data);
                 } else {
                     throw new Error(json.error || "Failed to fetch");

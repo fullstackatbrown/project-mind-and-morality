@@ -270,7 +270,6 @@ class CosmicServices {
 
       publications.forEach((publication) => {
         const topic = publication.metadata.topic;
-        console.log(topic);
 
         if (topic && map.has(topic)) {
           const topicGroup = map.get(topic);
