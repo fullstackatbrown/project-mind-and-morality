@@ -9,8 +9,8 @@ const dmSans = DM_Sans({
 
 export default function GetInvolvedStudentsPage() {
   return (
-    <main className={`${dmSans.className} w-full bg-[#f5f5f5] text-[#459a9f]`}>
-      <div className="mx-auto w-full max-w-[402px] px-[10%] pb-12 pt-10 md:hidden">
+    <main className={`${dmSans.className} w-full overflow-x-hidden bg-white text-[#459a9f]`}>
+      <div className="mx-auto box-border w-full max-w-[402px] px-[10%] pb-12 pt-10 md:hidden">
         <h1 className="text-center text-[22px] font-bold leading-none tracking-[-0.09em] text-[#459a9f]">
           Get Involved for Students
         </h1>
@@ -22,7 +22,7 @@ export default function GetInvolvedStudentsPage() {
 
           <Image
             src="/get-involved-students/undergrads.png"
-            alt="Students at an outreach table"
+            alt="Mind and Morality Lab students working."
             width={320}
             height={320}
             className="mt-3 h-auto w-full object-cover"
@@ -74,7 +74,7 @@ export default function GetInvolvedStudentsPage() {
         <section className="mt-8">
           <Image
             src="/get-involved-students/who-we-are-looking-for.png"
-            alt="Researcher and child doing a learning activity"
+            alt="Mind and Morality Lab students working."
             width={320}
             height={320}
             className="h-auto w-full object-cover"
@@ -118,7 +118,7 @@ export default function GetInvolvedStudentsPage() {
 
           <Image
             src="/get-involved-students/prospective-grads.png"
-            alt="Prospective graduate students in a lab discussion"
+            alt="Mind and Morality Lab students working."
             width={320}
             height={214}
             className="mt-3 h-auto w-full object-cover"
@@ -209,7 +209,7 @@ export default function GetInvolvedStudentsPage() {
           <div className="mx-auto w-full max-w-[500px] md:pt-[6px]">
             <Image
               src="/get-involved-students/undergrads.png"
-              alt="Students at an outreach table"
+              alt="Mind and Morality Lab students working."
               width={500}
               height={500}
               className="h-auto w-full object-cover"
@@ -254,7 +254,7 @@ export default function GetInvolvedStudentsPage() {
           <div className="mx-auto w-full max-w-[500px] md:-mt-[74px]">
             <Image
               src="/get-involved-students/who-we-are-looking-for.png"
-              alt="Researcher and child doing a learning activity"
+              alt="Mind and Morality Lab students working."
               width={500}
               height={500}
               className="h-auto w-full object-cover"
@@ -299,7 +299,7 @@ export default function GetInvolvedStudentsPage() {
           <div className="mx-auto w-full max-w-[500px] md:pt-[2px]">
             <Image
               src="/get-involved-students/prospective-grads.png"
-              alt="Prospective graduate students in a lab discussion"
+              alt="Mind and Morality Lab students working."
               width={500}
               height={334}
               className="h-auto w-full object-cover"

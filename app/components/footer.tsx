@@ -4,10 +4,10 @@ import Link from "next/link"
 export default function Footer() {
   return (
     <footer className="relative w-full overflow-hidden bg-[linear-gradient(180deg,transparent_0%,#F9C85F_100%)]">
-      <div className="mx-auto flex h-[150px] max-w-[403px] items-end justify-between px-[10%] pb-6 md:hidden">
-        <div className="text-[12px] font-medium leading-[18px] text-[#459a9f]">
+      <div className="mx-auto box-border flex h-[150px] max-w-[403px] items-end justify-between px-[10%] pb-6 md:hidden">
+        <div className="min-w-0 max-w-[230px] break-words text-[12px] font-medium leading-[18px] text-[#459a9f]">
           <p>190 Thayer Street, Providence, RI 02912</p>
-          <p>mindmoralitylab@brown.edu</p>
+          <p className="break-all">mindmoralitylab@brown.edu</p>
           <p>+1(401) 863 3921</p>
           <p className="mt-[10px]">© Mind and Morality Lab 2026</p>
         </div>

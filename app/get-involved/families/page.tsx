@@ -9,8 +9,8 @@ const dmSans = DM_Sans({
 
 export default function GetInvolvedFamiliesPage() {
   return (
-    <main className={`${dmSans.className} w-full bg-[#f5f5f5] text-[#459a9f]`}>
-      <div className="mx-auto w-full max-w-[402px] px-[10%] pb-5 pt-10 md:hidden">
+    <main className={`${dmSans.className} w-full overflow-x-hidden bg-white pb-8 text-[#459a9f] md:pb-0`}>
+      <div className="mx-auto box-border w-full max-w-[402px] px-[10%] pb-5 pt-10 md:hidden">
         <h1 className="text-center text-[22px] font-bold leading-none tracking-[-0.09em] text-[#459a9f]">
           Get Involved for Families
         </h1>
@@ -20,26 +20,26 @@ export default function GetInvolvedFamiliesPage() {
         </p>
       </div>
 
-      <section className="relative bg-[#bcf1f5] py-6 md:hidden">
+      <section className="relative mb-10 bg-[#bcf1f5] py-6 md:hidden">
         <Image
           src="/get-involved-families/arrow-left.svg"
-          alt="Previous"
+          alt="Mind and Morality Lab student with a child."
           width={19}
           height={31}
           className="absolute left-[4.5%] top-1/2 h-[31px] w-[19px] -translate-y-1/2"
         />
         <Image
           src="/get-involved-families/arrow-right.svg"
-          alt="Next"
+          alt="Mind and Morality Lab student with a child."
           width={19}
           height={31}
           className="absolute right-[4.5%] top-1/2 h-[31px] w-[19px] -translate-y-1/2"
         />
 
-        <div className="mx-auto w-full max-w-[402px] px-[10%] pb-2">
+        <div className="mx-auto box-border w-full max-w-[402px] px-[10%] pb-5">
           <Image
             src="/get-involved-families/in-person-studies.png"
-            alt="Researcher and child participating in an in-person study"
+            alt="Mind and Morality Lab student with a child."
             width={250}
             height={250}
             className="mx-auto h-auto w-full max-w-[250px] object-cover"
@@ -68,7 +68,7 @@ export default function GetInvolvedFamiliesPage() {
           >
             <Image
               src="/get-involved-families/form-icon.svg"
-              alt="Form icon"
+              alt="Mind and Morality Lab student with a child."
               width={18}
               height={18}
               className="mr-1.5 h-[18px] w-[18px]"
@@ -93,12 +93,12 @@ export default function GetInvolvedFamiliesPage() {
           There are many ways to get involved in research!
         </p>
 
-        <section className="relative mx-auto rounded-[40px] bg-[#bcf1f5] px-4 py-6 md:px-8 md:py-8 lg:h-[625px] lg:w-[1214px] lg:px-[71px] lg:py-[57px]">
+        <section className="relative mx-auto rounded-[40px] bg-[#bcf1f5] px-4 py-6 md:px-8 md:py-8 lg:min-h-[625px] lg:w-[1214px] lg:px-[71px] lg:py-[57px]">
           <div className="grid gap-6 lg:grid-cols-[520px_499px] lg:gap-[48px]">
             <div className="mx-auto w-full max-w-[520px] lg:mx-0">
               <Image
                 src="/get-involved-families/in-person-studies.png"
-                alt="Researcher and child participating in an in-person study"
+                alt="Mind and Morality Lab student with a child."
                 width={520}
                 height={520}
                 className="h-auto w-full rounded-[28px] object-cover lg:rounded-[40px]"
@@ -129,7 +129,7 @@ export default function GetInvolvedFamiliesPage() {
               >
                 <Image
                   src="/get-involved-families/form-icon.svg"
-                  alt="Form icon"
+                  alt="Mind and Morality Lab student with a child."
                   width={41}
                   height={41}
                   className="mr-1.5 h-[41px] w-[41px]"
@@ -141,14 +141,14 @@ export default function GetInvolvedFamiliesPage() {
 
           <Image
             src="/get-involved-families/arrow-left.svg"
-            alt="Previous"
+            alt="Mind and Morality Lab student with a child."
             width={80}
             height={80}
             className="absolute left-3 top-1/2 hidden h-12 w-12 -translate-y-1/2 lg:-left-[8px] lg:block lg:h-20 lg:w-20"
           />
           <Image
             src="/get-involved-families/arrow-right.svg"
-            alt="Next"
+            alt="Mind and Morality Lab student with a child."
             width={80}
             height={80}
             className="absolute right-3 top-1/2 hidden h-12 w-12 -translate-y-1/2 lg:-right-[8px] lg:block lg:h-20 lg:w-20"
@@ -156,7 +156,7 @@ export default function GetInvolvedFamiliesPage() {
 
           <Image
             src="/get-involved-families/carousel-dots.svg"
-            alt="Carousel position"
+            alt="Mind and Morality Lab student with a child."
             width={72}
             height={16}
             className="mx-auto mt-5 block h-4 w-[72px] lg:mt-[35px]"
