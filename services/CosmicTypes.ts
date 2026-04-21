@@ -202,8 +202,8 @@ export interface ResearchTopic {
  * publication title
  * @param metadata.citation_prefix
  * citation prefix, typically authors and date
- * @param metadata.citation_topics
- * one or more topic references for citation grouping/filtering
+ * @param metadata.topic
+ * the id of the given topic
  * @param metadata.link
  * optional URL to the publication source
  * @param metadata.citation_suffix

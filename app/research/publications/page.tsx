@@ -11,7 +11,7 @@ type SortKey = "topic" | "alpha" | "recent";
 
 type Paper = {
     title: string;
-    authors: string;
+    prefix: string;
     year: number;
     journal: string;
     topic: string;
@@ -37,7 +37,7 @@ const normalizeSuffix = (suffix?: string) => {
 
 const publicationToPaper = (publication: ResearchPublication): Paper => ({
     title: publication.title,
-    authors: publication.metadata.citation_prefix,
+    prefix: publication.metadata.citation_prefix,
     year: publication.metadata.year_published,
     journal: normalizeSuffix(publication.metadata.citation_suffix),
     topic: publication.metadata.topic,
@@ -182,7 +182,7 @@ export default function PublicationsPage() {
                                     <p key={`${paper.title}-${index}`}>
                                         {paper.featured && <span className="text-[#E79121]">☆ </span>}
                                         <span className="font-semibold">
-                            {paper.authors} ({paper.year}).
+                            {paper.prefix}
                         </span>{" "}
                                         {paper.link ? (
                                             <a
