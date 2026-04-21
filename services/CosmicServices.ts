@@ -425,7 +425,7 @@ class CosmicServices {
   submitContactForm = async (submission: ContactFormSubmission): Promise<boolean> => {
     try {
       await cosmic.objects.insertOne({
-        type: "contact-form-submissions",
+        type: "messages",
         title: `Contact from ${submission.first_name} ${submission.last_name}`,
         metadata: {
           first_name: submission.first_name,
@@ -435,7 +435,10 @@ class CosmicServices {
         },
       });
       return true;
-    } catch {
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message)
+      }
       return false;
     }
   };
