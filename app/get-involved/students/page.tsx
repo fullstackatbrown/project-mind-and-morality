@@ -1,312 +1,148 @@
-import Image from "next/image";
-import Link from "next/link";
-import { DM_Sans } from "next/font/google";
+"use client"
+
+import { DM_Sans } from "next/font/google"
 
 const dmSans = DM_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "700", "900"],
-});
+	subsets: ["latin"],
+	weight: ["400", "500", "600", "700"],
+})
 
-export default function GetInvolvedStudentsPage() {
-  return (
-    <main className={`${dmSans.className} w-full bg-[#f5f5f5] text-[#459a9f]`}>
-      <div className="mx-auto w-full max-w-[402px] px-[10%] pb-12 pt-10 md:hidden">
-        <h1 className="text-center text-[22px] font-bold leading-none tracking-[-0.09em] text-[#459a9f]">
-          Get Involved for Students
-        </h1>
+export default function GetInvolvedStudents() {
+	return (
+		<main className={`${dmSans.className} w-full min-h-screen bg-[#f4f4f2] pt-16 pb-24`}>
+			<section className="mx-auto w-full max-w-[1180px] px-6 md:px-10">
+				<header className="text-center">
+					<h1 className="text-[34px] leading-[1.15] font-semibold tracking-[-0.02em] text-[#5b96a0] md:text-[46px]">
+						Get Involved for Students
+					</h1>
+				</header>
 
-        <section className="mt-5">
-          <h2 className="text-center text-[16px] font-black leading-none tracking-[-0.125em] text-[#e79121]">
-            Brown Undergrads
-          </h2>
+				<div className="mt-14 grid grid-cols-1 items-start gap-10 lg:grid-cols-[56%_44%] lg:gap-12">
+					<div>
+						<h2 className="text-[42px] leading-[1.05] font-semibold tracking-[-0.02em] text-[#cf8c2f] md:text-[35px]">
+							Brown Undergrads
+						</h2>
 
-          <Image
-            src="/get-involved-students/undergrads.png"
-            alt="Students at an outreach table"
-            width={320}
-            height={320}
-            className="mt-3 h-auto w-full object-cover"
-            priority
-          />
+						<p className="mt-5 max-w-[720px] text-[24px] leading-[1.28] font-semibold tracking-[-0.02em] text-[#5b96a0] md:text-[28px]">
+							Looking to work in the lab as a research assistant?
+						</p>
 
-          <h3 className="mt-6 max-w-[320px] text-[16px] font-black leading-[21px] text-[#459a9f]">
-            Looking to work in the lab as a research assistant?
-          </h3>
+						<div className="mt-6 max-w-[760px] space-y-7 text-[17px] leading-[1.55] text-[#5d959f] md:text-[20px]">
+							<p>
+								We are not actively recruiting undergraduate research assistants.
+								However, prospective research assistants can express their
+								interest by emailing{" "}
+								<a
+									href="mailto:mindmoralitylab-manager@brown.edu"
+									className="font-medium text-[#cf8c2f] underline decoration-[#cf8c2f] underline-offset-2"
+								>
+									mindmoralitylab-manager@brown.edu
+								</a>{" "}
+								and attaching a copy of their CV/resume. You should expect a
+								response within 5 business days.
+							</p>
 
-          <div className="mt-4 space-y-5 text-[14px] font-medium leading-[21px] text-[#459a9f]">
-            <p>
-              We are not actively recruiting undergraduate research assistants.
-              However, prospective research assistants can express their
-              interest by emailing{" "}
-              <a
-                href="mailto:mindmoralitylab-manager@brown.edu"
-                className="text-[#e79121] underline underline-offset-2"
-              >
-                mindmoralitylab-manager@brown.edu
-              </a>{" "}
-              and attaching a copy of their CV/resume. You should expect a
-              response within 5 business days.
-            </p>
+							<p>
+								Additionally, we actively recruit research assistants through
+								the Undergraduate Teaching and Research Awards (UTRA) program
+								every cycle. For more information about how to apply to the lab
+								as an UTRA student, {" "}
+								<a
+									href="#"
+									className="font-medium text-[#cf8c2f] underline decoration-[#cf8c2f] underline-offset-2"
+								>
+									click here.
+								</a>
+							</p>
 
-            <p>
-              Additionally, we actively recruit research assistants through the
-              Undergraduate Teaching and Research Awards (UTRA) program every
-              cycle. For more information about how to apply to the lab as an
-              UTRA student,{" "}
-              <a
-                href="https://utra.brown.edu/students#application-process"
-                target="_blank"
-                rel="noreferrer"
-                className="text-[#e79121] underline underline-offset-2"
-              >
-                click here
-              </a>
-              .
-            </p>
+							<p>
+								We are a new lab at Brown and cannot currently support
+								undergraduate research assistants from other universities.
+							</p>
+						</div>
+					</div>
 
-            <p>
-              We are a new lab at Brown and cannot currently support
-              undergraduate research assistants from other universities.
-            </p>
-          </div>
-        </section>
+					<div className="pt-2 lg:pt-7">
+						<div className="h-[460px] w-full rounded-[36px] bg-[#d8dee0]" />
+					</div>
+				</div>
 
-        <section className="mt-8">
-          <Image
-            src="/get-involved-students/who-we-are-looking-for.png"
-            alt="Researcher and child doing a learning activity"
-            width={320}
-            height={320}
-            className="h-auto w-full object-cover"
-          />
+				<div className="mt-12 grid grid-cols-1 items-start gap-10 lg:grid-cols-[56%_44%] lg:gap-12">
+					<div>
+						<h3 className="text-[34px] leading-[1.12] font-semibold tracking-[-0.02em] text-[#5b96a0] md:text-[27px]">
+							Who are we looking for?
+						</h3>
 
-          <h3 className="mt-6 text-[16px] font-black leading-[21px] text-[#459a9f]">
-            Who are we looking for?
-          </h3>
+						<div className="mt-6 max-w-[760px] space-y-8 text-[17px] leading-[1.55] text-[#5d959f] md:text-[20px]">
+							<p>
+								You do not need research experience to apply to this lab. In
+								fact, we encourage first year students to apply!
+							</p>
 
-          <div className="mt-4 space-y-5 text-[14px] font-medium leading-[21px] text-[#459a9f]">
-            <p>
-              You do not need research experience to apply to this lab. In
-              fact, we encourage first year students to apply!
-            </p>
+							<p>
+								For volunteer RAs, you are expected to work approximately 8
+								hours per week during the semester. UTRA students are expected
+								to work 10 hours per week for the duration of the UTRA term,
+								as outlined by the program.
+							</p>
+						</div>
 
-            <p>
-              For volunteer RAs, you are expected to work approximately 8 hours
-              per week during the semester. UTRA students are expected to work
-              10 hours per week for the duration of the UTRA term, as outlined
-              by the program.
-            </p>
-          </div>
+						<div className="mt-9 max-w-[760px] rounded-[38px] bg-[#b8dce1] px-8 py-8 md:px-12 md:py-9">
+							<p className="text-[17px] leading-[1.5] text-[#5d959f] md:text-[21px]">
+								If you would like to apply to join the lab for the upcoming
+								Spring semester, please email {" "}
+								<a
+									href="mailto:mindmoralitylab-manager@brown.edu"
+									className="font-medium text-[#cf8c2f] underline decoration-[#cf8c2f] underline-offset-2"
+								>
+									mindmoralitylab-manager@brown.edu
+								</a>{" "}
+								around Thanksgiving break.
+							</p>
+						</div>
+					</div>
 
-          <div className="mt-6 rounded-[20px] bg-[#bcf1f5] px-[14px] py-[18px] text-[14px] font-medium leading-[21px] text-[#459a9f]">
-            If you would like to apply to join the lab for the upcoming Spring
-            semester, please email{" "}
-            <a
-              href="mailto:mindmoralitylab-manager@brown.edu"
-              className="text-[#e79121] underline underline-offset-2"
-            >
-              mindmoralitylab-manager@brown.edu
-            </a>{" "}
-            around Thanksgiving break.
-          </div>
-        </section>
+					<div className="pt-0 lg:pt-6">
+						<div className="h-[500px] w-full rounded-[36px] bg-[#d8dee0]" />
+					</div>
+				</div>
 
-        <section className="mt-11">
-          <h2 className="text-center text-[16px] font-black leading-none tracking-[-0.125em] text-[#e79121]">
-            Prospective Graduate Students
-          </h2>
+				<div className="mt-16 grid grid-cols-1 items-start gap-10 lg:grid-cols-[56%_44%] lg:gap-12">
+					<div>
+						<h3 className="text-[38px] leading-[1.08] font-semibold tracking-[-0.02em] text-[#cf8c2f] md:text-[40px]">
+							Prospective Graduate Students
+						</h3>
 
-          <Image
-            src="/get-involved-students/prospective-grads.png"
-            alt="Prospective graduate students in a lab discussion"
-            width={320}
-            height={214}
-            className="mt-3 h-auto w-full object-cover"
-          />
+						<p className="mt-5 max-w-[760px] text-[24px] leading-[1.28] font-semibold tracking-[-0.01em] text-[#5b96a0] md:text-[28px]">
+							Looking to apply to the graduate program?
+						</p>
 
-          <h3 className="mt-6 text-[16px] font-black leading-[21px] text-[#459a9f]">
-            Looking to apply to the graduate program?
-          </h3>
+						<p className="mt-7 max-w-[760px] text-[17px] leading-[1.55] text-[#5d959f] md:text-[20px]">
+							Dr. Marshall will not be admitting new graduate students for
+							the foreseeable future. For more information on Brown&apos;s
+							application process, please have a look at the {" "}
+							<a
+								href="#"
+								className="font-medium text-[#cf8c2f] underline decoration-[#cf8c2f] underline-offset-2"
+							>
+								department website
+							</a>
+							. You can also click {" "}
+							<a
+								href="#"
+								className="font-medium text-[#cf8c2f] underline decoration-[#cf8c2f] underline-offset-2"
+							>
+								here
+							</a>{" "}
+							for some helpful graduate student resources.
+						</p>
+					</div>
 
-          <p className="mt-4 text-[14px] font-medium leading-[21px] text-[#459a9f]">
-            Dr. Marshall will not be admitting new graduate students for the
-            foreseeable future. For more information on Brown&apos;s application
-            process, please have a look at the{" "}
-            <Link
-              href="https://graduateprograms.brown.edu/graduate-program/psychology-phd"
-              target="_blank"
-              rel="noreferrer"
-              className="text-[#e79121] underline underline-offset-2"
-            >
-              department website
-            </Link>
-            . You can also click{" "}
-            <Link
-              href="https://www.psychresearchlist.com/grad-school-resources.html"
-              target="_blank"
-              rel="noreferrer"
-              className="text-[#e79121] underline underline-offset-2"
-            >
-              here
-            </Link>{" "}
-            for some helpful graduate student resources.
-          </p>
-        </section>
-      </div>
-
-      <div className="mx-auto hidden max-w-[1175px] px-6 pb-24 pt-14 md:block md:px-8 md:pb-28 lg:px-0 lg:pt-[52px]">
-        <h1 className="mb-20 text-center text-[50px] font-bold leading-[1.1] tracking-[-0.02em] text-[#3f97a4]">
-          Get Involved for Students
-        </h1>
-
-        <section className="mb-20 grid gap-8 md:grid-cols-[615px_500px] md:items-start md:justify-center md:gap-[60px]">
-          <div>
-            <h2 className="mb-[14px] text-[40px] font-black leading-[1.05] tracking-[-0.02em] text-[#e79121]">
-              Brown Undergrads
-            </h2>
-            <h3 className="mb-4 text-[30px] font-black leading-[1.1] text-[#3f97a4]">
-              Looking to work in the lab as a research assistant?
-            </h3>
-
-            <div className="space-y-[30px] text-[22px] font-medium leading-[36px] text-[#3f97a4]">
-              <p className="max-w-[616px]">
-                We are not actively recruiting undergraduate research assistants.
-                However, prospective research assistants can express their
-                interest by emailing{" "}
-                <a
-                  href="mailto:mindmoralitylab-manager@brown.edu"
-                  className="underline underline-offset-2"
-                >
-                  mindmoralitylab-manager@brown.edu
-                </a>{" "}
-                and attaching a copy of their CV/resume. You should expect a
-                response within 5 business days.
-              </p>
-
-              <p className="max-w-[616px]">
-                Additionally, we actively recruit research assistants through
-                the Undergraduate Teaching and Research Awards (UTRA) program
-                every cycle. For more information about how to apply to the lab
-                as an UTRA student,{" "}
-                <a
-                  href="https://utra.brown.edu/students#application-process"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="underline underline-offset-2"
-                >
-                  click here
-                </a>
-                .
-              </p>
-
-              <p className="max-w-[616px]">
-                We are a new lab at Brown and cannot currently support
-                undergraduate research assistants from other universities.
-              </p>
-            </div>
-          </div>
-
-          <div className="mx-auto w-full max-w-[500px] md:pt-[6px]">
-            <Image
-              src="/get-involved-students/undergrads.png"
-              alt="Students at an outreach table"
-              width={500}
-              height={500}
-              className="h-auto w-full object-cover"
-              priority
-            />
-          </div>
-        </section>
-
-        <section className="mb-20 grid gap-8 md:grid-cols-[615px_500px] md:items-start md:justify-center md:gap-[60px]">
-          <div>
-            <h3 className="mb-4 text-[30px] font-black leading-[1.1] text-[#3f97a4]">
-              Who are we looking for?
-            </h3>
-
-            <div className="space-y-[28px] text-[22px] font-medium leading-[36px] text-[#3f97a4]">
-              <p className="max-w-[615px]">
-                You do not need research experience to apply to this lab. In
-                fact, we encourage first year students to apply!
-              </p>
-
-              <p className="max-w-[615px]">
-                For volunteer RAs, you are expected to work approximately 8
-                hours per week during the semester. UTRA students are expected
-                to work 10 hours per week for the duration of the UTRA term, as
-                outlined by the program.
-              </p>
-            </div>
-
-            <div className="mt-8 max-w-[595px] rounded-[40px] bg-[#bcf1f5] px-11 py-7 text-[22px] font-medium leading-[36px] text-[#3f97a4]">
-              If you would like to apply to join the lab for the upcoming
-              Spring semester, please email{" "}
-              <a
-                href="mailto:mindmoralitylab-manager@brown.edu"
-                className="text-[#e79121] underline underline-offset-2"
-              >
-                mindmoralitylab-manager@brown.edu
-              </a>{" "}
-              around Thanksgiving break.
-            </div>
-          </div>
-
-          <div className="mx-auto w-full max-w-[500px] md:-mt-[74px]">
-            <Image
-              src="/get-involved-students/who-we-are-looking-for.png"
-              alt="Researcher and child doing a learning activity"
-              width={500}
-              height={500}
-              className="h-auto w-full object-cover"
-            />
-          </div>
-        </section>
-
-        <section className="grid gap-8 pb-6 md:grid-cols-[615px_500px] md:items-start md:justify-center md:gap-[60px]">
-          <div>
-            <h2 className="mb-[14px] text-[40px] font-black leading-[1.05] tracking-[-0.02em] text-[#e79121]">
-              Prospective Graduate Students
-            </h2>
-            <h3 className="mb-4 text-[30px] font-black leading-[1.1] text-[#3f97a4]">
-              Looking to apply to the graduate program?
-            </h3>
-
-            <p className="max-w-[615px] text-[22px] font-medium leading-[36px] text-[#3f97a4]">
-              Dr. Marshall will not be admitting new graduate students for the
-              foreseeable future. For more information on Brown&apos;s application
-              process, please have a look at the{" "}
-              <Link
-                href="https://graduateprograms.brown.edu/graduate-program/psychology-phd"
-                target="_blank"
-                rel="noreferrer"
-                className="underline underline-offset-2"
-              >
-                department website
-              </Link>
-              . You can also click{" "}
-              <Link
-                href="https://www.psychresearchlist.com/grad-school-resources.html"
-                target="_blank"
-                rel="noreferrer"
-                className="underline underline-offset-2"
-              >
-                here
-              </Link>{" "}
-              for some helpful graduate student resources.
-            </p>
-          </div>
-
-          <div className="mx-auto w-full max-w-[500px] md:pt-[2px]">
-            <Image
-              src="/get-involved-students/prospective-grads.png"
-              alt="Prospective graduate students in a lab discussion"
-              width={500}
-              height={334}
-              className="h-auto w-full object-cover"
-            />
-          </div>
-        </section>
-      </div>
-    </main>
-  );
+					<div className="pt-1 lg:pt-4">
+						<div className="h-[330px] w-full rounded-[36px] bg-[#d8dee0]" />
+					</div>
+				</div>
+			</section>
+		</main>
+	)
 }
