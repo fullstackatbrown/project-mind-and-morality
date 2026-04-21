@@ -5,8 +5,24 @@ import NewsItem from "../components/NewsItem";
 
 const PAGE_SIZE = 15;
 
+type NewsThumbnail = {
+  id: string;
+  title?: string;
+  metadata?: {
+    publish_date?: string;
+    summary?: string;
+  };
+};
+
+const formatPublishDate = (value?: string) => {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleDateString();
+};
+
 export default function NewsPage() {
-  const [news, setNews] = useState<any[]>([]);
+  const [news, setNews] = useState<NewsThumbnail[]>([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [hasNext, setHasNext] = useState(false);
@@ -21,7 +37,7 @@ export default function NewsPage() {
         const res = await fetch(`/api/news/thumbnails?limit=${PAGE_SIZE + 1}&page=${page}`);
         if (!res.ok) throw new Error("Failed to fetch");
         const data = await res.json();
-        const items = data.thumbnails || [];
+        const items = (data.thumbnails || []) as NewsThumbnail[];
         if (ignore) return;
         setHasNext(items.length > PAGE_SIZE);
         setNews(items.slice(0, PAGE_SIZE));
@@ -53,9 +69,8 @@ export default function NewsPage() {
           news.map((item) => (
             <NewsItem
               key={item.id}
-              id={item.id}
               title={item.title || "Untitled"}
-              date={item.metadata?.publish_date?.toLocaleDateString?.() || ""}
+              date={formatPublishDate(item.metadata?.publish_date)}
               excerpt={item.metadata?.summary || ""}
             />
           ))

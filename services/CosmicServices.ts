@@ -1,3 +1,4 @@
+import { error } from "console";
 import { cosmic } from "../lib/cosmic";
 import {
   TeamMember,
@@ -6,6 +7,7 @@ import {
   NewsPostThumbnail,
   NewsPostThumbnailRaw,
   ResearchPublication,
+  ResearchPublicationsPage,
   ResearchQuestion,
   ResearchTopic,
   ResearchTopicsAndPublications,
@@ -113,10 +115,11 @@ class CosmicServices {
    * @returns a list of news post thumbnails to display, or an empty list on failure
    */
   getNewsPostThumbnails = async (
-    limit: number,
+    pageSize: number,
     page_number: number,
   ): Promise<NewsPostThumbnail[]> => {
     try {
+      const safePageSize = Number.isFinite(pageSize) && pageSize > 0 ? pageSize : 15;
       const props = `
         id
         title
@@ -137,8 +140,10 @@ class CosmicServices {
         .status("published")
         .props(props)
         .sort("-metadata.publish_date")
-        .limit(limit)
-        .skip(limit * page_number);
+        // Fetch one extra item so the client can determine if there is a next page,
+        // while still skipping by the true page size.
+        .limit(safePageSize + 1)
+        .skip(safePageSize * page_number);
 
       const raw_thumbnails = data.objects as NewsPostThumbnailRaw[];
 
@@ -236,7 +241,7 @@ class CosmicServices {
    * @returns a list of research topic groups with their publications, or null if the fetch fails
    */
   getResearchTopicsAndPublications = async (): Promise<
-    ResearchTopicsAndPublications[] | null
+    ResearchPublicationsPage | null
   > => {
     try {
       // get topics ('research-topics')
@@ -265,9 +270,10 @@ class CosmicServices {
 
       publications.forEach((publication) => {
         const topic = publication.metadata.topic;
+        console.log(topic);
 
-        if (topic && map.has(topic.id)) {
-          const topicGroup = map.get(topic.id);
+        if (topic && map.has(topic)) {
+          const topicGroup = map.get(topic);
 
           if (!topicGroup) {
             return;
@@ -306,8 +312,15 @@ class CosmicServices {
         return compareStrings(top1.topic.id, top2.topic.id);
       });
 
-      return research_topics_and_pubs;
-    } catch {
+      const sorted_alph = publications.toSorted((pub1, pub2) => compareStrings(pub1.title, pub2.title))
+      
+      const pub_page = {
+        sorted_by_topic : research_topics_and_pubs,
+        sorted_by_date : publications, 
+        sorted_alphabetically : sorted_alph} as ResearchPublicationsPage;
+      return pub_page;
+    } catch (error) {
+      console.error(error)
       return null;
     }
   };
