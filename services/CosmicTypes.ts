@@ -70,6 +70,26 @@ export interface TeamMember {
     profilePhoto?: CosmicMedia;
   };
 }
+/**
+ * Interface for grouping team members by role for rendering on the team page.
+ * @param lab_directors
+ * list of team members categorized as lab directors
+ * @param post_doctoral_researchers
+ * list of team members categorized as post-doctoral researchers
+ * @param graduate_students
+ * list of team members categorized as graduate students
+ * @param lab_managers
+ * list of team members categorized as lab managers
+ * @param undergrads
+ * list of team members categorized as undergraduate students
+ */
+export interface TeamPageGroups {
+  lab_directors : TeamMember[];
+  post_doctoral_researchers : TeamMember[];
+  graduate_students : TeamMember[];
+  lab_managers : TeamMember[];
+  undergrads : TeamMember[];
+}
 
 // NEWS POST STUFF :
 /**
@@ -408,4 +428,22 @@ export interface GetInvolvedFamiliesPage {
     subheader: string;
     opportunities: GetInvolvedFamiliesItem[];
   }
+}
+
+/**
+ * Interface for a contact form submission.
+ * @param first_name
+ * first name of the person submitting the form
+ * @param last_name
+ * last name of the person submitting the form
+ * @param email
+ * email address of the person submitting the form
+ * @param message
+ * message content from the form submission
+ */
+export interface ContactFormSubmission {
+  first_name: string;
+  last_name: string;
+  email: string;
+  message: string;
 }

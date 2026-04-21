@@ -12,7 +12,9 @@ import {
   ResearchTopicsPage,
   GetInvolvedFamiliesPage,
   GetInvolvedStudentsPage,
-  HomePage
+  HomePage,
+  TeamPageGroups,
+  ContactFormSubmission
 } from "./CosmicTypes";
 
 /**
@@ -43,62 +45,63 @@ class CosmicServices {
   /**
    * method to get Team Members
    *
-   * @returns two lists of TeamMembers, the first the list of non undergrads (to be displayed at the top of the page) and the second the list of undergrads (or two empty lists on failure)
+   * @returns a TeamPageGroups objects, which contains fields for each list of team members (which are TeamMember objects)
    */
 
-  getTeamMembers = async (): Promise<[TeamMember[], TeamMember[]]> => {
+  getTeamMembers = async (): Promise<TeamPageGroups> => {
     try {
       const data = await cosmic.objects
         .find({ type: "team-members" })
         .status("published");
 
       const raw_objects = data.objects as TeamMember[];
+      const filtered_objects = [];
 
-      const non_undergrads = raw_objects.filter(
-        (member) => !member.metadata.undergraduate,
-      );
+      filtered_objects.push(raw_objects.filter(
+        (member) => member.metadata.role == "Lab Director"
+      ));
+      filtered_objects.push(raw_objects.filter(
+        (member) => member.metadata.role == "Post Doctoral Researcher"
+      ));
+      filtered_objects.push(raw_objects.filter(
+        (member) => member.metadata.role == "Graduate Student"
+      ));
+      filtered_objects.push(raw_objects.filter(
+        (member) => member.metadata.role == "Lab Manager"
+      ));
+      filtered_objects.push(raw_objects.filter(
+        (member) => member.metadata.undergraduate
+      ));
 
-      non_undergrads.sort((a, b) => {
-        const orderA = a.metadata.displayOrder ?? Number.MAX_SAFE_INTEGER;
-        const orderB = b.metadata.displayOrder ?? Number.MAX_SAFE_INTEGER;
+      filtered_objects.forEach(lst => {
+          lst.sort((a, b) => {
+          const orderA = a.metadata.displayOrder ?? Number.MAX_SAFE_INTEGER;
+          const orderB = b.metadata.displayOrder ?? Number.MAX_SAFE_INTEGER;
 
-        if (orderA !== orderB) {
-          return orderA - orderB;
-        }
+          if (orderA !== orderB) {
+            return orderA - orderB;
+          }
 
-        const byName = compareStrings(a.metadata.name, b.metadata.name);
+          const byName = compareStrings(a.metadata.name, b.metadata.name);
 
-        if (byName !== 0) {
-          return byName;
-        }
+          if (byName !== 0) {
+            return byName;
+          }
 
-        return compareStrings(a.id, b.id);
-      });
+          return compareStrings(a.id, b.id);
+        });
+      })
+      const team_page_groups = {} as TeamPageGroups;
+      team_page_groups.lab_directors = filtered_objects[0];
+      team_page_groups.post_doctoral_researchers = filtered_objects[1];
+      team_page_groups.graduate_students = filtered_objects[2];
+      team_page_groups.lab_managers = filtered_objects[3];
+      team_page_groups.undergrads = filtered_objects[4];
 
-      const undergrads = raw_objects.filter(
-        (member) => member.metadata.undergraduate,
-      );
+      return team_page_groups;
 
-      undergrads.sort((a, b) => {
-        const orderA = a.metadata.displayOrder ?? Number.MAX_SAFE_INTEGER;
-        const orderB = b.metadata.displayOrder ?? Number.MAX_SAFE_INTEGER;
-
-        if (orderA !== orderB) {
-          return orderA - orderB;
-        }
-
-        const byName = compareStrings(a.metadata.name, b.metadata.name);
-
-        if (byName !== 0) {
-          return byName;
-        }
-
-        return compareStrings(a.id, b.id);
-      });
-
-      return [non_undergrads, undergrads];
     } catch {
-      return [[], []];
+      return {} as TeamPageGroups;
     }
   };
 
@@ -412,6 +415,30 @@ class CosmicServices {
       return null;
     }
   }
+
+  /**
+   * method to submit a contact form entry to Cosmic
+   *
+   * @param submission the contact form submission data
+   * @returns true if successful, false otherwise
+   */
+  submitContactForm = async (submission: ContactFormSubmission): Promise<boolean> => {
+    try {
+      await cosmic.objects.insertOne({
+        type: "contact-form-submissions",
+        title: `Contact from ${submission.first_name} ${submission.last_name}`,
+        metadata: {
+          first_name: submission.first_name,
+          last_name: submission.last_name,
+          email: submission.email,
+          message: submission.message,
+        },
+      });
+      return true;
+    } catch {
+      return false;
+    }
+  };
 }
 
 export default CosmicServices;
