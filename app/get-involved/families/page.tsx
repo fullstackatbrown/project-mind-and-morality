@@ -1,11 +1,12 @@
 "use client"
 
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
 import { DM_Sans } from "next/font/google"
 
 const dmSans = DM_Sans({
 	subsets: ["latin"],
-	weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "700", "900"],
 })
 
 export default function GetInvolvedFamiliesPage() {

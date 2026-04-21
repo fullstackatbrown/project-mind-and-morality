@@ -178,8 +178,11 @@ export default function Header() {
               </Link>
             </li>
 
-            <li>
-              <button className="flex items-center gap-1 transition-opacity hover:opacity-80">
+            <li className="group relative">
+              <button
+                type="button"
+                className="flex items-center gap-1 transition-opacity hover:opacity-80"
+              >
                 Get Involved
                 <span className="text-sm">▼</span>
               </button>
