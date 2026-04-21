@@ -1,6 +1,10 @@
 import { createBucketClient } from '@cosmicjs/sdk';
+import 'dotenv/config';
+
+
 
 if (!process.env.COSMIC_BUCKET_SLUG) {
+    console.log(process.env)
     throw new Error("Missing COSMIC_BUCKET_SLUG environment variable");
 }
 if (!process.env.COSMIC_READ_KEY) {
