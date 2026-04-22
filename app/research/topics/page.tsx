@@ -20,6 +20,11 @@ export default async function ResearchTopicsPage() {
                 .orange-text {
                     color: #E79121;
                 }
+                
+                .teal-text {
+                    color: #459A9F;
+                }
+                
             `}</style>
 
       <section className="max-w-6xl w-full px-6 pt-10 pb-14 sm:px-8 sm:pt-12 sm:pb-16 md:px-10 md:pt-14 md:pb-20 lg:px-8 lg:pt-20 lg:pb-24">
