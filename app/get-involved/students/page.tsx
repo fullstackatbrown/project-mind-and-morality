@@ -11,12 +11,12 @@ export default function GetInvolvedStudentsPage() {
   return (
     <main className={`${dmSans.className} w-full overflow-x-hidden bg-white text-[#459a9f]`}>
       <div className="mx-auto box-border w-full max-w-[402px] px-[10%] pb-12 pt-10 md:hidden">
-        <h1 className="text-center text-[22px] font-bold leading-none tracking-[-0.09em] text-[#459a9f]">
+        <h1 className="text-center text-[22px] font-black leading-none tracking-[-0.09em] text-[#459a9f]">
           Get Involved for Students
         </h1>
 
         <section className="mt-5">
-          <h2 className="text-center text-[16px] font-black leading-none tracking-[-0.125em] text-[#e79121]">
+          <h2 className="text-center text-[16px] font-black leading-none tracking-[-0.125em] text-[#E79121]">
             Brown Undergrads
           </h2>
 
@@ -25,7 +25,7 @@ export default function GetInvolvedStudentsPage() {
             alt="Mind and Morality Lab students working."
             width={320}
             height={320}
-            className="mt-3 h-auto w-full object-cover"
+            className="mt-3 h-auto w-full rounded-none object-cover"
             priority
           />
 
@@ -77,7 +77,7 @@ export default function GetInvolvedStudentsPage() {
             alt="Mind and Morality Lab students working."
             width={320}
             height={320}
-            className="h-auto w-full object-cover"
+            className="h-auto w-full rounded-none object-cover"
           />
 
           <h3 className="mt-6 text-[16px] font-black leading-[21px] text-[#459a9f]">
@@ -112,7 +112,7 @@ export default function GetInvolvedStudentsPage() {
         </section>
 
         <section className="mt-11">
-          <h2 className="text-center text-[16px] font-black leading-none tracking-[-0.125em] text-[#e79121]">
+          <h2 className="text-center text-[16px] font-black leading-none tracking-[-0.125em] text-[#E79121]">
             Prospective Graduate Students
           </h2>
 
@@ -121,7 +121,7 @@ export default function GetInvolvedStudentsPage() {
             alt="Mind and Morality Lab students working."
             width={320}
             height={214}
-            className="mt-3 h-auto w-full object-cover"
+            className="mt-3 h-auto w-full rounded-none object-cover"
           />
 
           <h3 className="mt-6 text-[16px] font-black leading-[21px] text-[#459a9f]">
@@ -155,13 +155,13 @@ export default function GetInvolvedStudentsPage() {
       </div>
 
       <div className="mx-auto hidden max-w-[1175px] px-6 pb-24 pt-14 md:block md:px-8 md:pb-28 lg:px-0 lg:pt-[52px]">
-        <h1 className="mb-20 text-center text-[50px] font-bold leading-[1.1] tracking-[-0.02em] text-[#3f97a4]">
+        <h1 className="mb-20 text-center text-[50px] font-black leading-[1.1] tracking-[-0.02em] text-[#3f97a4]">
           Get Involved for Students
         </h1>
 
         <section className="mb-20 grid gap-8 md:grid-cols-[615px_500px] md:items-start md:justify-center md:gap-[60px]">
           <div>
-            <h2 className="mb-[14px] text-[40px] font-black leading-[1.05] tracking-[-0.02em] text-[#e79121]">
+            <h2 className="mb-[14px] text-[40px] font-black leading-[1.05] tracking-[-0.02em] text-[#E79121]">
               Brown Undergrads
             </h2>
             <h3 className="mb-4 text-[30px] font-black leading-[1.1] text-[#3f97a4]">
@@ -212,7 +212,7 @@ export default function GetInvolvedStudentsPage() {
               alt="Mind and Morality Lab students working."
               width={500}
               height={500}
-              className="h-auto w-full object-cover"
+              className="h-auto w-full rounded-none object-cover"
               priority
             />
           </div>
@@ -238,7 +238,7 @@ export default function GetInvolvedStudentsPage() {
               </p>
             </div>
 
-            <div className="mt-8 max-w-[595px] rounded-[40px] bg-[#bcf1f5] px-11 py-7 text-[22px] font-medium leading-[36px] text-[#3f97a4]">
+            <div className="mt-8 h-[205px] w-[595px] rounded-[40px] bg-[#bcf1f5] px-11 py-7 text-[22px] font-medium leading-[36px] text-[#3f97a4]">
               If you would like to apply to join the lab for the upcoming
               Spring semester, please email{" "}
               <a
@@ -257,14 +257,14 @@ export default function GetInvolvedStudentsPage() {
               alt="Mind and Morality Lab students working."
               width={500}
               height={500}
-              className="h-auto w-full object-cover"
+              className="h-auto w-full rounded-none object-cover"
             />
           </div>
         </section>
 
         <section className="grid gap-8 pb-6 md:grid-cols-[615px_500px] md:items-start md:justify-center md:gap-[60px]">
           <div>
-            <h2 className="mb-[14px] text-[40px] font-black leading-[1.05] tracking-[-0.02em] text-[#e79121]">
+            <h2 className="mb-[14px] text-[40px] font-black leading-[1.05] tracking-[-0.02em] text-[#E79121]">
               Prospective Graduate Students
             </h2>
             <h3 className="mb-4 text-[30px] font-black leading-[1.1] text-[#3f97a4]">
@@ -302,7 +302,7 @@ export default function GetInvolvedStudentsPage() {
               alt="Mind and Morality Lab students working."
               width={500}
               height={334}
-              className="h-auto w-full object-cover"
+              className="h-auto w-full rounded-none object-cover"
             />
           </div>
         </section>
