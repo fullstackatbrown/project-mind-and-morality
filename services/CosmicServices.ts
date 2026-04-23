@@ -19,25 +19,9 @@ import {
   ContactFormSubmission,
 } from "./CosmicTypes";
 
-/**
- * Compare two strings case-insensitively, treating missing values as empty strings.
- * @param first
- * first string to compare
- * @param second
- * second string to compare
- * @returns negative when first sorts before second, positive when after, or 0 when equivalent
- */
 const compareStrings = (first?: string, second?: string) =>
   (first ?? "").localeCompare(second ?? "", undefined, { sensitivity: "base" });
 
-/**
- * Compare two numbers, treating missing values as 0.
- * @param first
- * first number to compare
- * @param second
- * second number to compare
- * @returns negative when first is smaller, positive when larger, or 0 when equal
- */
 const compareNumbers = (first?: number, second?: number) =>
   (first ?? 0) - (second ?? 0);
 
@@ -47,10 +31,10 @@ class CosmicServices {
   /**
    * method to get Team Members
    *
-   * @returns a TeamPageGroups objects, which contains fields for each list of team members (which are TeamMember objects)
+   * @returns two lists of TeamMembers, the first the list of non undergrads (to be displayed at the top of the page) and the second the list of undergrads (or two empty lists on failure)
    */
 
-  getTeamMembers = async (): Promise<TeamPageGroups> => {
+  getTeamMembers = async (): Promise<[TeamMember[], TeamMember[]]> => {
     try {
       const data = await cosmic.objects
         .find({ type: "team-members" })
@@ -88,15 +72,6 @@ class CosmicServices {
             return orderA - orderB;
           }
 
-          const byName = compareStrings(a.metadata.name, b.metadata.name);
-
-          if (byName !== 0) {
-            return byName;
-          }
-
-          return compareStrings(a.id, b.id);
-        });
-      });
       const team_page_groups = {} as TeamPageGroups;
       team_page_groups.lab_directors = filtered_objects[0];
       team_page_groups.post_doctoral_researchers = filtered_objects[1];
@@ -106,7 +81,7 @@ class CosmicServices {
 
       return team_page_groups;
     } catch {
-      return {} as TeamPageGroups;
+      return [[], []];
     }
   };
 
