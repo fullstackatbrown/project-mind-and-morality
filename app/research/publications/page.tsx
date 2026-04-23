@@ -10,10 +10,10 @@ export default function PublicationsPage() {
         "w-full md:flex-1 rounded-full border-2 py-2.5 sm:py-2.5 md:py-3 text-[16px] sm:text-[17px] md:text-[18px] font-medium transition-all duration-200"
 
     const active =
-        "bg-[#B8E1E4] text-teal-700 border-teal-600"
+        "bg-[#B8E1E4] text-[#459A9F] border-teal-600"
 
     const inactive =
-        "bg-transparent text-teal-700 border-teal-600"
+        "bg-transparent text-[#459A9F] border-teal-600"
 
     const publicationsByTopic = [
         {
@@ -314,9 +314,9 @@ export default function PublicationsPage() {
     }
 
     return (
-        <main className="min-h-screen bg-[#F5F5F5] w-full px-6 py-10 sm:px-8 sm:py-12 md:px-10 md:py-14 lg:px-12 lg:py-16">
+        <main className="min-h-screen bg-[#FFFFFF] w-full px-6 py-10 sm:px-8 sm:py-12 md:px-10 md:py-14 lg:px-12 lg:py-16">
             <div className="max-w-6xl mx-auto">
-                <h1 className="text-center text-teal-700 font-semibold text-[32px] leading-tight sm:text-[38px] md:text-[42px] mb-6 md:mb-7">
+                <h1 className="text-center text-[#459A9F] font-semibold text-[32px] leading-tight sm:text-[38px] md:text-[42px] mb-6 md:mb-7">
                     Research Publications
                 </h1>
 
@@ -325,7 +325,7 @@ export default function PublicationsPage() {
                 </p>
 
                 <div className="max-w-5xl mx-auto mb-10 sm:mb-12 md:mb-14">
-                    <p className="text-teal-700 font-semibold text-[18px] sm:text-[19px] md:text-[20px] mb-3 md:mb-4">
+                    <p className="text-[#459A9F] font-semibold text-[18px] sm:text-[19px] md:text-[20px] mb-3 md:mb-4">
                         Sort:
                     </p>
 
@@ -353,32 +353,32 @@ export default function PublicationsPage() {
                     </div>
                 </div>
 
-                <div className="max-w-5xl mx-auto space-y-10 sm:space-y-12 md:space-y-16 lg:space-y-20">
-                    {displayedSections.map((section) => (
-                        <section key={section.topic}>
-                            <h2 className="text-teal-700 font-semibold text-[24px] sm:text-[28px] md:text-[30px] mb-4 sm:mb-5 md:mb-8">
-                                {section.topic}
-                            </h2>
+                                            <div className="max-w-5xl mx-auto space-y-10 sm:space-y-12 md:space-y-16 lg:space-y-20">
+                                        {displayedSections.map((section) => (
+                                            <section key={section.topic}>
+                                            <h2 className="text-[#459A9F] font-semibold text-[24px] sm:text-[28px] md:text-[30px] mb-4 sm:mb-5 md:mb-8">
+                                        {section.topic}
+                                            </h2>
 
-                            <div className="space-y-2 text-teal-700 text-[16px] leading-[1.7] sm:text-[18px]">
-                                {section.papers.map((paper, index) => (
-                                    <p key={`${paper.title}-${index}`}>
+                                            <div className="space-y-2 text-[#459A9F] text-[16px] leading-[1.7] sm:text-[18px]">
+                                        {section.papers.map((paper, index) => (
+                                            <p key={`${paper.title}-${index}`}>
                                         {paper.featured && <span className="text-[#E79121]">☆ </span>}
-                                        <span className="font-semibold">
-                            {paper.authors} ({paper.year}).
-                        </span>{" "}
+                                            <span className="font-semibold">
+                                        {paper.authors} ({paper.year}).
+                                            </span>{" "}
                                         {paper.link ? (
                                             <a
-                                                href={paper.link}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="underline"
+                                            href={paper.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="underline"
                                             >
-                                                {paper.title}
+                                        {paper.title}
                                             </a>
-                                        ) : (
+                                            ) : (
                                             paper.title
-                                        )}{" "}
+                                            )}{" "}
                                         {paper.journal}
                                         {(sort === "alpha" || sort === "recent") && (
                                             <span className="italic"> [{paper.topic}]</span>
