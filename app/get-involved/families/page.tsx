@@ -1,33 +1,35 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { DM_Sans } from "next/font/google"
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { DM_Sans } from "next/font/google";
 
 const dmSans = DM_Sans({
-	subsets: ["latin"],
+  subsets: ["latin"],
   weight: ["400", "500", "700", "900"],
-})
+});
 
 export default function GetInvolvedFamiliesPage() {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const slideCount = 3
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slideCount = 3;
 
   const goToSlide = (index: number) => {
-    setCurrentSlide(index)
-  }
+    setCurrentSlide(index);
+  };
 
   const goToPreviousSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slideCount) % slideCount)
-  }
+    setCurrentSlide((prev) => (prev - 1 + slideCount) % slideCount);
+  };
 
   const goToNextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slideCount)
-  }
+    setCurrentSlide((prev) => (prev + 1) % slideCount);
+  };
 
   return (
-    <main className={`${dmSans.className} w-full overflow-x-hidden bg-white pb-8 text-[#459a9f] md:pb-0`}>
+    <main
+      className={`${dmSans.className} w-full overflow-x-hidden bg-white pb-8 text-[#459a9f] md:pb-0`}
+    >
       <div className="mx-auto box-border w-full max-w-[402px] px-[10%] pb-5 pt-10 md:hidden">
         <h1 className="text-center text-[22px] font-black leading-none tracking-[-0.09em] text-[#459a9f]">
           Get Involved for Families
@@ -74,7 +76,10 @@ export default function GetInvolvedFamiliesPage() {
             style={{ transform: `translateX(-${currentSlide * 100}%)` }}
           >
             {Array.from({ length: slideCount }).map((_, index) => (
-              <div key={index} className="box-border w-full shrink-0 px-[10%] pb-5">
+              <div
+                key={index}
+                className="box-border w-full shrink-0 px-[10%] pb-5"
+              >
                 <Image
                   src="/get-involved-families/in-person-studies.png"
                   alt="Mind and Morality Lab student with a child."
@@ -90,12 +95,13 @@ export default function GetInvolvedFamiliesPage() {
 
                 <p className="mx-auto mt-4 max-w-[250px] text-[14px] font-medium leading-[21px] text-[#459a9f]">
                   Live in Providence or the surrounding area? While the Mind and
-                  Morality Lab is not currently conducting in-person studies, other
-                  labs in our research group have several active in-person studies
-                  that are currently recruiting children of various ages. If you&apos;re
-                  interested in in-person studies, check out the other developmental
-                  labs at Brown or click the button to the right to be added to the
-                  general in-person contact list.
+                  Morality Lab is not currently conducting in-person studies,
+                  other labs in our research group have several active in-person
+                  studies that are currently recruiting children of various
+                  ages. If you&apos;re interested in in-person studies, check
+                  out the other developmental labs at Brown or click the button
+                  to the right to be added to the general in-person contact
+                  list.
                 </p>
 
                 <div className="mx-auto mt-5 max-w-[250px]">
@@ -172,13 +178,14 @@ export default function GetInvolvedFamiliesPage() {
                       </h2>
 
                       <p className="max-w-[499px] text-[22px] font-medium leading-[36px] text-[#459a9f]">
-                        Live in Providence or the surrounding area? While the Mind and
-                        Morality Lab is not currently conducting in-person studies,
-                        other labs in our research group have several active in-person
-                        studies that are currently recruiting children of various ages.
-                        If you&apos;re interested in in-person studies, check out the other
-                        developmental labs at Brown or click the button to the right to
-                        be added to the general in-person contact list.
+                        Live in Providence or the surrounding area? While the
+                        Mind and Morality Lab is not currently conducting
+                        in-person studies, other labs in our research group have
+                        several active in-person studies that are currently
+                        recruiting children of various ages. If you&apos;re
+                        interested in in-person studies, check out the other
+                        developmental labs at Brown or click the button to the
+                        right to be added to the general in-person contact list.
                       </p>
 
                       <Link
