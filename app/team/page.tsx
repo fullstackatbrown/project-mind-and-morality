@@ -11,7 +11,7 @@ export default async function TeamPage() {
     <div className="bg-white">
     <div className="max-w-6xl bg-white mx-auto px-6">
 
-      <h1 className="text-5xl text-center text-[#459A9F] font-semibold pt-16 mb-16">
+      <h1 className="text-5xl text-center text-[#459A9F] font-semibold mb-16">
         Our Team
       </h1>
 
