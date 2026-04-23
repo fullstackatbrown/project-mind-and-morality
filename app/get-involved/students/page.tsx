@@ -1,6 +1,6 @@
-"use client"
-
-import { DM_Sans } from "next/font/google"
+import Image from "next/image";
+import Link from "next/link";
+import { DM_Sans } from "next/font/google";
 
 const dmSans = DM_Sans({
 	subsets: ["latin"],
