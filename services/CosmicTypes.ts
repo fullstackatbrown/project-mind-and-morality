@@ -1,5 +1,7 @@
 // COSMIC TYPES
 
+import ResearchTopicsPage from "@/app/research/topics/page";
+
 // interface for a TeamMember -- should be moved to a types.ts file, but placed here for now
 /**
  * @param  url
@@ -180,12 +182,12 @@ export interface ResearchTopic {
  * publication title
  * @param metadata.citation_prefix
  * citation prefix, typically authors and date
- * @param metadata.citation_topics
- * one or more topic references for citation grouping/filtering
+ * @param metadata.topic
+ * the id of the given topic
  * @param metadata.link
  * optional URL to the publication source
  * @param metadata.citation_suffix
- * citation suffix, typically publication venue and page range
+ * citation suffix, typically publication venue and page range --> needs period added at end
  * @param metadata.starred
  * true when the publication should be highlighted as starred
  */
@@ -195,7 +197,7 @@ export interface ResearchPublication {
   title: string;
   metadata: {
     citation_prefix: string;
-    topic: ResearchTopic;
+    topic: string;
     link?: string;
     citation_suffix: string;
     starred: boolean;
@@ -216,6 +218,12 @@ export interface ResearchTopicsAndPublications {
   topic: ResearchTopic;
   starred_publications: ResearchPublication[];
   unstarred_publications: ResearchPublication[];
+}
+
+export interface ResearchPublicationsPage {
+  sorted_by_topic: ResearchTopicsAndPublications[];
+  sorted_by_date: ResearchPublication[];
+  sorted_alphabetically: ResearchPublication[];
 }
 
 /**

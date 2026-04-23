@@ -3,7 +3,6 @@
 import { useState } from "react";
 
 type Props = {
-  id: number;
   title: string;
   date: string;
   excerpt: string;
