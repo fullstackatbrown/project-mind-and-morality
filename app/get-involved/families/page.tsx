@@ -1,14 +1,13 @@
-"use client";
+"use client"
 
+import { DM_Sans } from "next/font/google"
 import { useState, useEffect } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { DM_Sans } from "next/font/google";
+import FamiliesSlider from "@/app/components/FamiliesSlider";
 
 const dmSans = DM_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "700", "900"],
-});
+	subsets: ["latin"],
+	weight: ["400", "500", "600", "700"],
+})
 
 
 export default function GetInvolvedFamilies() {
@@ -16,7 +15,7 @@ export default function GetInvolvedFamilies() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
+	useEffect(() => {
     async function fetchData() {
       try {
         const res = await fetch("/api/get-involved/families");
