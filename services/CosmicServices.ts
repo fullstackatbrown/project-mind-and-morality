@@ -105,7 +105,8 @@ class CosmicServices {
       team_page_groups.undergrads = filtered_objects[4];
 
       return team_page_groups;
-    } catch {
+    } catch (error) {
+      console.error(error);
       return {} as TeamPageGroups;
     }
   };
@@ -187,7 +188,8 @@ class CosmicServices {
       });
 
       return thumbnails;
-    } catch {
+    } catch (error) {
+      console.error(error);
       return [];
     }
   };
@@ -230,7 +232,8 @@ class CosmicServices {
           publish_date: new Date(raw_news_post.metadata.publish_date),
         },
       };
-    } catch {
+    } catch (error) {
+      console.error(error);
       return null;
     }
   };
@@ -388,7 +391,8 @@ class CosmicServices {
       const topics_page = raw_topics_page_data.object as ResearchTopicsPage;
 
       return [topics_page, questions];
-    } catch {
+    } catch (error) {
+      console.error(error);
       return null;
     }
   };
@@ -406,7 +410,8 @@ class CosmicServices {
       const home_page = raw_home_page.object as HomePage;
 
       return home_page;
-    } catch {
+    } catch (error) {
+      console.error(error);
       return null;
     }
   };
@@ -426,7 +431,8 @@ class CosmicServices {
           raw_student_involvement_page.object as GetInvolvedStudentsPage;
 
         return student_involvement_page;
-      } catch {
+      } catch (error) {
+        console.error(error);
         return null;
       }
     };
@@ -466,7 +472,8 @@ class CosmicServices {
         }
 
         return family_involvement_page;
-      } catch {
+      } catch (error) {
+        console.error(error);
         return null;
       }
     };
@@ -493,9 +500,7 @@ class CosmicServices {
       });
       return true;
     } catch (error) {
-      if (error instanceof Error) {
-        console.error(error.message);
-      }
+      console.error(error);
       return false;
     }
   };
