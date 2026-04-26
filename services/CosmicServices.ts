@@ -34,7 +34,7 @@ class CosmicServices {
    * @returns two lists of TeamMembers, the first the list of non undergrads (to be displayed at the top of the page) and the second the list of undergrads (or two empty lists on failure)
    */
 
-  getTeamMembers = async (): Promise<[TeamMember[], TeamMember[]]> => {
+  getTeamMembers = async (): Promise<TeamPageGroups | null> => {
     try {
       const data = await cosmic.objects
         .find({ type: "team-members" })
@@ -72,6 +72,10 @@ class CosmicServices {
             return orderA - orderB;
           }
 
+          return compareStrings(a.title, b.title);
+        });
+      });
+
       const team_page_groups = {} as TeamPageGroups;
       team_page_groups.lab_directors = filtered_objects[0];
       team_page_groups.post_doctoral_researchers = filtered_objects[1];
@@ -80,8 +84,8 @@ class CosmicServices {
       team_page_groups.undergrads = filtered_objects[4];
 
       return team_page_groups;
-    } catch {
-      return [[], []];
+    } catch (_e) {
+      return null;
     }
   };
 
@@ -162,7 +166,7 @@ class CosmicServices {
       });
 
       return thumbnails;
-    } catch {
+    } catch (_e) {
       return [];
     }
   };
@@ -205,7 +209,7 @@ class CosmicServices {
           publish_date: new Date(raw_news_post.metadata.publish_date),
         },
       };
-    } catch {
+    } catch (_e) {
       return null;
     }
   };
@@ -363,7 +367,7 @@ class CosmicServices {
       const topics_page = raw_topics_page_data.object as ResearchTopicsPage;
 
       return [topics_page, questions];
-    } catch {
+    } catch (_e) {
       return null;
     }
   };
@@ -381,7 +385,7 @@ class CosmicServices {
       const home_page = raw_home_page.object as HomePage;
 
       return home_page;
-    } catch {
+    } catch (_e) {
       return null;
     }
   };
@@ -401,7 +405,7 @@ class CosmicServices {
           raw_student_involvement_page.object as GetInvolvedStudentsPage;
 
         return student_involvement_page;
-      } catch {
+      } catch (_e) {
         return null;
       }
     };
@@ -421,7 +425,7 @@ class CosmicServices {
           raw_family_involvement_page.object as GetInvolvedFamiliesPage;
 
         return family_involvement_page;
-      } catch {
+      } catch (_e) {
         return null;
       }
     };

@@ -7,7 +7,6 @@ type Props = {
 export default function StaffCard({ member }: Props) {
   const {
     name,
-    role,
     description,
     linkedin,
     website,
@@ -17,7 +16,7 @@ export default function StaffCard({ member }: Props) {
   } = member.metadata;
 
   return (
-    <div className="flex flex-col md:flex-row gap-12 items-center py-20">
+    <div className="flex flex-col md:flex-row gap-12 items-center py-8">
 
       {/* Profile Image */}
       <div className="flex-shrink-0">
@@ -37,15 +36,11 @@ export default function StaffCard({ member }: Props) {
       </div>
 
       {/* Info Section */}
-      <div className="max-w-xl">
+      <div>
 
         <h2 className="text-3xl font-bold text-[#E79121]">
           {name}
         </h2>
-
-        <p className="text-xl text-[#459A9F] font-semibold mt-2">
-          {role}
-        </p>
 
         <p className="mt-6 text-[#459A9F] leading-relaxed">
           {description}
