@@ -57,26 +57,40 @@ class CosmicServices {
         .status("published");
 
       const raw_objects = data.objects as TeamMember[];
+      const normalized_objects = raw_objects.map((member) => ({
+        ...member,
+        metadata: {
+          ...member.metadata,
+          displayOrder:
+            member.metadata.displayOrder ?? member.metadata.displayorder,
+          profilePhoto:
+            member.metadata.profilePhoto ?? member.metadata.profilephoto,
+        },
+      }));
       const filtered_objects = [];
 
       filtered_objects.push(
-        raw_objects.filter((member) => member.metadata.role == "Lab Director"),
+        normalized_objects.filter(
+          (member) => member.metadata.role == "Lab Director",
+        ),
       );
       filtered_objects.push(
-        raw_objects.filter(
+        normalized_objects.filter(
           (member) => member.metadata.role == "Post Doctoral Researcher",
         ),
       );
       filtered_objects.push(
-        raw_objects.filter(
+        normalized_objects.filter(
           (member) => member.metadata.role == "Graduate Student",
         ),
       );
       filtered_objects.push(
-        raw_objects.filter((member) => member.metadata.role == "Lab Manager"),
+        normalized_objects.filter(
+          (member) => member.metadata.role == "Lab Manager",
+        ),
       );
       filtered_objects.push(
-        raw_objects.filter((member) => member.metadata.undergraduate),
+        normalized_objects.filter((member) => member.metadata.undergraduate),
       );
 
       filtered_objects.forEach((lst) => {

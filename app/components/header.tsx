@@ -175,15 +175,6 @@ export default function Header() {
               </div>
             </li>
 
-            <li>
-              <Link
-                href="/news"
-                className="transition-opacity hover:opacity-80"
-              >
-                News
-              </Link>
-            </li>
-
             <li className="group relative">
               <button
                 type="button"

@@ -63,6 +63,7 @@ export interface TeamMember {
     description: string;
     undergraduate: boolean;
     displayOrder?: number;
+    displayorder?: number;
 
     linkedin?: string;
     website?: string;
@@ -70,6 +71,7 @@ export interface TeamMember {
     cv?: CosmicMedia;
 
     profilePhoto?: CosmicMedia;
+    profilephoto?: CosmicMedia;
   };
 }
 /**
