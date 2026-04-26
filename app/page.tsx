@@ -8,19 +8,42 @@ import InstagramPostCard from "@/components/InstagramPostCard";
 
 export default function Home() {
   const slides = ["/slideshow1.png", "/slideshow1.png", "/slideshow1.png"];
+  // Clone of first slide appended so we can slide into it, then snap back invisibly
+  const extendedSlides = [...slides, slides[0]];
 
   const [current, setCurrent] = useState(0);
+  const [animated, setAnimated] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % slides.length);
+      setCurrent((prev) => prev + 1);
     }, 4000);
-
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    if (current === extendedSlides.length - 1) {
+      // After sliding into the clone, snap back to real first slide without animation
+      const timer = setTimeout(() => {
+        setAnimated(false);
+        setCurrent(0);
+      }, 700);
+      return () => clearTimeout(timer);
+    }
+  }, [current]);
+
+  useEffect(() => {
+    if (!animated) {
+      // Re-enable animation after the snap
+      const timer = setTimeout(() => setAnimated(true), 50);
+      return () => clearTimeout(timer);
+    }
+  }, [animated]);
+
+  const activeIndex = current === extendedSlides.length - 1 ? 0 : current;
+
   return (
-    <div className="min-h-screen w-full bg-zinc-50 flex flex-col items-center">
+    <div className="min-h-screen w-full flex flex-col items-center">
       <style>{`
       .orange-text {
         color: #E79121;
@@ -29,33 +52,37 @@ export default function Home() {
 
       <section className="max-w-6xl w-full flex flex-col md:flex-row gap-16 py-16 px-8 items-center">
         <div className="relative w-full aspect-video md:w-[420px] md:h-[520px] md:aspect-auto flex-shrink-0 rounded-3xl overflow-hidden">
-          <Image
-            src={slides[current]}
-            alt="Lab photo"
-            fill
-            className="object-cover"
-          />
+          <div
+            className={`flex h-full ${animated ? "transition-transform duration-900 ease-in-out" : ""}`}
+            style={{ transform: `translateX(-${current * (100 / extendedSlides.length)}%)`, width: `${extendedSlides.length * 100}%` }}
+          >
+            {extendedSlides.map((slide, i) => (
+              <div key={i} className="relative h-full flex-shrink-0" style={{ width: `${100 / extendedSlides.length}%` }}>
+                <Image src={slide} alt="Lab photo" fill className="object-cover" />
+              </div>
+            ))}
+          </div>
 
-          <div className="absolute bottom-3 w-full flex justify-center gap-2">
+          <div className="absolute bottom-3 w-full flex justify-center gap-2 z-10">
             {slides.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
-                className={`w-2 h-2 rounded-full ${i === current ? "bg-teal-500" : "bg-gray-300"}`}
+                className={`w-2 h-2 rounded-full transition-colors duration-300 ${i === activeIndex ? "bg-[#F2AD3D]" : "bg-[#459A9F]"}`}
               />
             ))}
           </div>
         </div>
 
         <div className="max-w-lg">
-          <img src="./logo.png"></img>
+          <img src="./logo.png" className="w-full mb-4"></img>
 
-          <p className="text-xl text-teal-800 mb-4">
+          <p className="text-xl font-bold text-[#459A9F] mb-4">
             The Mind & Morality Lab is a developmental psychology lab at Brown
             University in the Department of Cognitive & Psychological Sciences.
           </p>
 
-          <p className="text-xl text-teal-800">
+          <p className="text-xl text-[#459A9F]">
             We focus on understanding the psychological roots of human morality
             through an interdisciplinary lens, drawing on philosophical, legal,
             and psychological perspectives in our work with both children and

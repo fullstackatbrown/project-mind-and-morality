@@ -93,6 +93,14 @@ export interface TeamPageGroups {
   undergrads : TeamMember[];
 }
 
+export interface TeamPageGroups {
+  lab_directors: TeamMember[];
+  post_doctoral_researchers: TeamMember[];
+  graduate_students: TeamMember[];
+  lab_managers: TeamMember[];
+  undergrads: TeamMember[];
+}
+
 // NEWS POST STUFF :
 /**
  * A raw NewsPostThumbnail that has its dates as strings rather than Dates

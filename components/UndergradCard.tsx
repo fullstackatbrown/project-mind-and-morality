@@ -40,10 +40,10 @@ export default function UndergradCard({ member }: Props) {
         {name}
       </h3>
 
-      {/* Role Badge */}
-      <span className="text-md text-[#459A9F] font-semibold">
-        {role}
-      </span>
+      {/* Role */}
+      {role && (
+        <p className="text-sm font-bold text-[#459A9F] -mt-2">{role}</p>
+      )}
 
       {/* Description */}
       <p className="text-sm text-[#459A9F] text-left leading-relaxed">
