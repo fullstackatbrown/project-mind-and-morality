@@ -32,7 +32,7 @@ export default function NewsPage() {
       setLoading(true);
       setError("");
       try {
-        const res = await fetch(`/api/news/thumbnails?limit=${PAGE_SIZE + 1}&page=${page}`);
+        const res = await fetch(`/api/news/thumbnails?limit=${PAGE_SIZE}&page=${page}`);
         if (!res.ok) throw new Error("Failed to fetch");
         const data = await res.json();
         const items = (data.thumbnails || []) as NewsThumbnail[];
