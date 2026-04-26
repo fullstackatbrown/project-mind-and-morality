@@ -1,35 +1,6 @@
+'use client;'
 import NewsItem from "../components/NewsItem";
-
-const news = [
-  {
-    id: 1,
-    title: "Title Title Title",
-    date: "Date",
-    excerpt:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-  {
-    id: 2,
-    title: "Title Title Title",
-    date: "Date",
-    excerpt:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-  {
-    id: 3,
-    title: "Title Title Title",
-    date: "Date",
-    excerpt:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-  {
-    id: 4,
-    title: "Title Title Title",
-    date: "Date",
-    excerpt:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-];
+import { useState, useEffect } from "react";
 
 type NewsThumbnail = {
   id: string;
@@ -53,6 +24,7 @@ export default function NewsPage() {
   const [loading, setLoading] = useState(false);
   const [hasNext, setHasNext] = useState(false);
   const [error, setError] = useState("");
+  const PAGE_SIZE = 15;
 
   useEffect(() => {
     let ignore = false;
@@ -60,7 +32,7 @@ export default function NewsPage() {
       setLoading(true);
       setError("");
       try {
-        const res = await fetch(`/api/news/thumbnails?limit=${PAGE_SIZE + 1}&page=${page}`);
+        const res = await fetch(`/api/news/thumbnails?limit=${PAGE_SIZE}&page=${page}`);
         if (!res.ok) throw new Error("Failed to fetch");
         const data = await res.json();
         const items = (data.thumbnails || []) as NewsThumbnail[];

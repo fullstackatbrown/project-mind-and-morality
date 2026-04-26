@@ -19,9 +19,25 @@ import {
   ContactFormSubmission,
 } from "./CosmicTypes";
 
+/**
+ * Compare two strings case-insensitively, treating missing values as empty strings.
+ * @param first
+ * first string to compare
+ * @param second
+ * second string to compare
+ * @returns negative when first sorts before second, positive when after, or 0 when equivalent
+ */
 const compareStrings = (first?: string, second?: string) =>
   (first ?? "").localeCompare(second ?? "", undefined, { sensitivity: "base" });
 
+/**
+ * Compare two numbers, treating missing values as 0.
+ * @param first
+ * first number to compare
+ * @param second
+ * second number to compare
+ * @returns negative when first is smaller, positive when larger, or 0 when equal
+ */
 const compareNumbers = (first?: number, second?: number) =>
   (first ?? 0) - (second ?? 0);
 
@@ -31,10 +47,10 @@ class CosmicServices {
   /**
    * method to get Team Members
    *
-   * @returns two lists of TeamMembers, the first the list of non undergrads (to be displayed at the top of the page) and the second the list of undergrads (or two empty lists on failure)
+   * @returns a TeamPageGroups objects, which contains fields for each list of team members (which are TeamMember objects)
    */
 
-  getTeamMembers = async (): Promise<[TeamMember[], TeamMember[]]> => {
+  getTeamMembers = async (): Promise<TeamPageGroups> => {
     try {
       const data = await cosmic.objects
         .find({ type: "team-members" })
@@ -72,6 +88,15 @@ class CosmicServices {
             return orderA - orderB;
           }
 
+          const byName = compareStrings(a.metadata.name, b.metadata.name);
+
+          if (byName !== 0) {
+            return byName;
+          }
+
+          return compareStrings(a.id, b.id);
+        });
+      });
       const team_page_groups = {} as TeamPageGroups;
       team_page_groups.lab_directors = filtered_objects[0];
       team_page_groups.post_doctoral_researchers = filtered_objects[1];
@@ -80,8 +105,9 @@ class CosmicServices {
       team_page_groups.undergrads = filtered_objects[4];
 
       return team_page_groups;
-    } catch {
-      return [[], []];
+    } catch (error) {
+      console.error(error);
+      return {} as TeamPageGroups;
     }
   };
 
@@ -162,7 +188,8 @@ class CosmicServices {
       });
 
       return thumbnails;
-    } catch {
+    } catch (error) {
+      console.error(error);
       return [];
     }
   };
@@ -205,7 +232,8 @@ class CosmicServices {
           publish_date: new Date(raw_news_post.metadata.publish_date),
         },
       };
-    } catch {
+    } catch (error) {
+      console.error(error);
       return null;
     }
   };
@@ -363,7 +391,8 @@ class CosmicServices {
       const topics_page = raw_topics_page_data.object as ResearchTopicsPage;
 
       return [topics_page, questions];
-    } catch {
+    } catch (error) {
+      console.error(error);
       return null;
     }
   };
@@ -381,7 +410,8 @@ class CosmicServices {
       const home_page = raw_home_page.object as HomePage;
 
       return home_page;
-    } catch {
+    } catch (error) {
+      console.error(error);
       return null;
     }
   };
@@ -401,7 +431,8 @@ class CosmicServices {
           raw_student_involvement_page.object as GetInvolvedStudentsPage;
 
         return student_involvement_page;
-      } catch {
+      } catch (error) {
+        console.error(error);
         return null;
       }
     };
@@ -420,8 +451,29 @@ class CosmicServices {
         const family_involvement_page =
           raw_family_involvement_page.object as GetInvolvedFamiliesPage;
 
+        // If opportunities are just IDs, fetch the full objects
+        if (
+          family_involvement_page?.metadata?.opportunities?.length &&
+          typeof family_involvement_page.metadata.opportunities[0] === "string"
+        ) {
+          // Fetch all opportunity objects by their IDs
+          const ids = family_involvement_page.metadata
+            .opportunities as string[];
+          const oppsData = await cosmic.objects
+            .find({ type: "get-involved-families-items", id: { $in: ids } })
+            .status("published");
+          // Sort to match the original order
+          const oppsMap = new Map(
+            oppsData.objects.map((obj: any) => [obj.id, obj]),
+          );
+          family_involvement_page.metadata.opportunities = ids
+            .map((id) => oppsMap.get(id))
+            .filter(Boolean);
+        }
+
         return family_involvement_page;
-      } catch {
+      } catch (error) {
+        console.error(error);
         return null;
       }
     };
@@ -448,9 +500,7 @@ class CosmicServices {
       });
       return true;
     } catch (error) {
-      if (error instanceof Error) {
-        console.error(error.message);
-      }
+      console.error(error);
       return false;
     }
   };
