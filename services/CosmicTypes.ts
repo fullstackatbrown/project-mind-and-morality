@@ -383,7 +383,7 @@ export interface GetInvolvedStudentsPage {
     image2 : CosmicMedia;
     graduates_header: string;
     graduates_subheader: string;
-    graduate_description: string; // HTML string
+    graduates_description: string; // HTML string
     image3 : CosmicMedia;
   }
 }

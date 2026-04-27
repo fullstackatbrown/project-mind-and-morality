@@ -429,7 +429,6 @@ class CosmicServices {
         });
         const student_involvement_page =
           raw_student_involvement_page.object as GetInvolvedStudentsPage;
-
         return student_involvement_page;
       } catch (error) {
         console.error(error);
