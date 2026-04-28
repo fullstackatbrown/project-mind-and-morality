@@ -406,7 +406,7 @@ class CosmicServices {
     try {
       const raw_home_page = await cosmic.objects.findOne({
         type: "home-page",
-      });
+      }).depth(1);
       const home_page = raw_home_page.object as HomePage;
 
       return home_page;
