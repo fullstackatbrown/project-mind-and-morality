@@ -57,13 +57,13 @@ export default function Home() {
       <section className="max-w-6xl w-full flex flex-col md:flex-row gap-16 py-16 px-8 items-center">
         <Slideshow images={home.metadata.slideshow_images} />
         <div className="max-w-lg">
+           {/* <img src="./logo.png" className="w-full mb-4"></img> */}
           <Image
             src={home.metadata.logo.imgix_url || home.metadata.logo.url}
             alt="Lab logo"
             width={320}
             height={120}
-            className="mb-4"
-            style={{ objectFit: "contain", width: "auto", height: "60px" }}
+            className="w-full mb-4"
             priority
           />
           <p className="text-xl text-teal-800 mb-4">
