@@ -66,7 +66,7 @@ export default function Home() {
             className="w-full mb-4"
             priority
           />
-          <p className="text-xl text-teal-800 mb-4">
+          <p className="text-xl font-bold text-teal-800 mb-4">
             {home.metadata.lab_header}
           </p>
           <p className="text-xl text-teal-800">
