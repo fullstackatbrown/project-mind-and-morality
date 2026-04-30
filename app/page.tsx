@@ -18,36 +18,43 @@ const page_to_link = new Map([
 ]);
 
 export default function Home() {
-  const [home, setHome] = useState<HomePage | null>(null);
-  const [loading, setLoading] = useState(true);
+  const slides = ["/slideshow1.png", "/slideshow1.png", "/slideshow1.png"];
+  // Clone of first slide appended so we can slide into it, then snap back invisibly
+  const extendedSlides = [...slides, slides[0]];
+
+  const [current, setCurrent] = useState(0);
+  const [animated, setAnimated] = useState(true);
 
   useEffect(() => {
-    fetch("/api/home")
-      .then((res) => res.json())
-      .then((data) => {
-        setHome(data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+    const interval = setInterval(() => {
+      setCurrent((prev) => prev + 1);
+    }, 4000);
+    return () => clearInterval(interval);
   }, []);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        Loading...
-      </div>
-    );
-  }
-  if (!home) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-red-600">
-        Failed to load home page.
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (current === extendedSlides.length - 1) {
+      // After sliding into the clone, snap back to real first slide without animation
+      const timer = setTimeout(() => {
+        setAnimated(false);
+        setCurrent(0);
+      }, 700);
+      return () => clearTimeout(timer);
+    }
+  }, [current]);
+
+  useEffect(() => {
+    if (!animated) {
+      // Re-enable animation after the snap
+      const timer = setTimeout(() => setAnimated(true), 50);
+      return () => clearTimeout(timer);
+    }
+  }, [animated]);
+
+  const activeIndex = current === extendedSlides.length - 1 ? 0 : current;
 
   return (
-    <div className="min-h-screen w-full bg-zinc-50 flex flex-col items-center">
+    <div className="min-h-screen w-full flex flex-col items-center">
       <style>{`
       .orange-text {
         color: #E79121;
@@ -55,22 +62,42 @@ export default function Home() {
     `}</style>
 
       <section className="max-w-6xl w-full flex flex-col md:flex-row gap-16 py-16 px-8 items-center">
-        <Slideshow images={home.metadata.slideshow_images} />
+        <div className="relative w-full aspect-video md:w-[420px] md:h-[520px] md:aspect-auto flex-shrink-0 rounded-3xl overflow-hidden">
+          <div
+            className={`flex h-full ${animated ? "transition-transform duration-900 ease-in-out" : ""}`}
+            style={{ transform: `translateX(-${current * (100 / extendedSlides.length)}%)`, width: `${extendedSlides.length * 100}%` }}
+          >
+            {extendedSlides.map((slide, i) => (
+              <div key={i} className="relative h-full flex-shrink-0" style={{ width: `${100 / extendedSlides.length}%` }}>
+                <Image src={slide} alt="Lab photo" fill className="object-cover" />
+              </div>
+            ))}
+          </div>
+
+          <div className="absolute bottom-3 w-full flex justify-center gap-2 z-10">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`w-2 h-2 rounded-full transition-colors duration-300 ${i === activeIndex ? "bg-[#F2AD3D]" : "bg-[#459A9F]"}`}
+              />
+            ))}
+          </div>
+        </div>
+
         <div className="max-w-lg">
-           {/* <img src="./logo.png" className="w-full mb-4"></img> */}
-          <Image
-            src={home.metadata.logo.imgix_url || home.metadata.logo.url}
-            alt="Lab logo"
-            width={320}
-            height={120}
-            className="w-full mb-4"
-            priority
-          />
-          <p className="text-xl font-bold text-teal-800 mb-4">
-            {home.metadata.lab_header}
+          <img src="./logo.png" className="w-full mb-4"></img>
+
+          <p className="text-xl font-bold text-[#459A9F] mb-4">
+            The Mind & Morality Lab is a developmental psychology lab at Brown
+            University in the Department of Cognitive & Psychological Sciences.
           </p>
-          <p className="text-xl text-teal-800">
-            {home.metadata.lab_description}
+
+          <p className="text-xl text-[#459A9F]">
+            We focus on understanding the psychological roots of human morality
+            through an interdisciplinary lens, drawing on philosophical, legal,
+            and psychological perspectives in our work with both children and
+            adults.
           </p>
         </div>
       </section>

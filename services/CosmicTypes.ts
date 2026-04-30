@@ -63,6 +63,7 @@ export interface TeamMember {
     description: string;
     undergraduate: boolean;
     displayOrder?: number;
+    displayorder?: number;
 
     linkedin?: string;
     website?: string;
@@ -70,6 +71,7 @@ export interface TeamMember {
     cv?: CosmicMedia;
 
     profilePhoto?: CosmicMedia;
+    profilephoto?: CosmicMedia;
   };
 }
 /**
@@ -91,6 +93,14 @@ export interface TeamPageGroups {
   graduate_students : TeamMember[];
   lab_managers : TeamMember[];
   undergrads : TeamMember[];
+}
+
+export interface TeamPageGroups {
+  lab_directors: TeamMember[];
+  post_doctoral_researchers: TeamMember[];
+  graduate_students: TeamMember[];
+  lab_managers: TeamMember[];
+  undergrads: TeamMember[];
 }
 
 // NEWS POST STUFF :
