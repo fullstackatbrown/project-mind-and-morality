@@ -1,10 +1,21 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import Header from "./components/header";
-import Footer from "./components/footer";
+import { useEffect, useState } from "react";
 import InstagramPostCard from "@/components/InstagramPostCard";
+import Slideshow from "@/components/Slideshow";
+import { HomePage } from "@/services/CosmicTypes";
+import Link from "next/link";
+
+const page_to_link = new Map([
+  ["research-topics", "/research/topics"],
+  ["research-publications", "/research/publications"],
+  ["families", "/get-involved/families"],
+  ["news", "/news"],
+  ["contact-us", "/contact"],
+  ["our-team", "/team"],
+  ["students", "/get-involved/students"],
+]);
 
 export default function Home() {
   const slides = ["/slideshow1.png", "/slideshow1.png", "/slideshow1.png"];
@@ -96,7 +107,6 @@ export default function Home() {
           <h2 className="text-2xl font-semibold mb-10 orange-text">
             News & Announcements
           </h2>
-
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             <InstagramPostCard
               caption="Excited to share our latest findings on moral development in children!"
@@ -116,29 +126,39 @@ export default function Home() {
 
       <section className="max-w-6xl w-full py-20 px-8">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-          <div className="flex flex-col gap-3">
-            <img
-              src="/homepagebottomsection/ResearchTopicsImage.png"
-              alt="Research Topics"
-              className="w-full rounded-3xl object-cover"
-            />
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <img
-              src="/homepagebottomsection/ParticipateImage.png"
-              alt="Participate With Your Child"
-              className="w-full rounded-3xl object-cover"
-            />
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <img
-              src="/homepagebottomsection/ProspectiveStudentsImage.png"
-              alt="Prospective Students"
-              className="w-full rounded-3xl object-cover"
-            />
-          </div>
+          {[
+            {
+              text: home.metadata.bottom_text1,
+              pageKey: home.metadata.bottom_page_link1,
+              image: home.metadata.bottom_image1,
+            },
+            {
+              text: home.metadata.bottom_text2,
+              pageKey: home.metadata.bottom_page_link2,
+              image: home.metadata.bottom_image2,
+            },
+            {
+              text: home.metadata.bottom_text3,
+              pageKey: home.metadata.bottom_page_link3,
+              image: home.metadata.bottom_image3,
+            },
+          ].map((section, idx) => {
+            const href = page_to_link.get(section.pageKey) || section.pageKey;
+            return (
+              <Link href={href} key={idx} className="flex flex-col gap-3 group">
+                <Image
+                  src={section.image.imgix_url || section.image.url}
+                  alt={section.text}
+                  width={400}
+                  height={240}
+                  className="w-full rounded-3xl object-cover group-hover:scale-105 transition-transform"
+                />
+                <span className="text-lg font-semibold text-center mt-2">
+                  {section.text}
+                </span>
+              </Link>
+            );
+          })}
         </div>
       </section>
     </div>

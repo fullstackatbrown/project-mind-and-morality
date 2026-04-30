@@ -420,7 +420,7 @@ class CosmicServices {
     try {
       const raw_home_page = await cosmic.objects.findOne({
         type: "home-page",
-      });
+      }).depth(1);
       const home_page = raw_home_page.object as HomePage;
 
       return home_page;
@@ -443,7 +443,6 @@ class CosmicServices {
         });
         const student_involvement_page =
           raw_student_involvement_page.object as GetInvolvedStudentsPage;
-
         return student_involvement_page;
       } catch (error) {
         console.error(error);
@@ -461,29 +460,10 @@ class CosmicServices {
       try {
         const raw_family_involvement_page = await cosmic.objects.findOne({
           type: "get-involved-families-page",
-        });
+        }).depth(1);
         const family_involvement_page =
           raw_family_involvement_page.object as GetInvolvedFamiliesPage;
 
-        // If opportunities are just IDs, fetch the full objects
-        if (
-          family_involvement_page?.metadata?.opportunities?.length &&
-          typeof family_involvement_page.metadata.opportunities[0] === "string"
-        ) {
-          // Fetch all opportunity objects by their IDs
-          const ids = family_involvement_page.metadata
-            .opportunities as string[];
-          const oppsData = await cosmic.objects
-            .find({ type: "get-involved-families-items", id: { $in: ids } })
-            .status("published");
-          // Sort to match the original order
-          const oppsMap = new Map(
-            oppsData.objects.map((obj: any) => [obj.id, obj]),
-          );
-          family_involvement_page.metadata.opportunities = ids
-            .map((id) => oppsMap.get(id))
-            .filter(Boolean);
-        }
 
         return family_involvement_page;
       } catch (error) {

@@ -6,12 +6,21 @@ interface FamiliesSliderProps {
   items: GetInvolvedFamiliesItem[];
 }
 
-export default function FamiliesSlider({ items }: FamiliesSliderProps) {
+export default function FamiliesSlider({items, } : FamiliesSliderProps) {
   const [index, setIndex] = useState(0);
+  const [fade, setFade] = useState(true);
   const total = items.length;
 
-  const prev = () => setIndex((i) => (i - 1 + total) % total);
-  const next = () => setIndex((i) => (i + 1) % total);
+  const handleChange = (newIndex: number) => {
+    setFade(false);
+    setTimeout(() => {
+      setIndex(newIndex);
+      setFade(true);
+    }, 200); // duration matches CSS transition
+  };
+
+  const prev = () => handleChange((index - 1 + total) % total);
+  const next = () => handleChange((index + 1) % total);
 
   if (total === 0) return null;
   const item = items[index];
@@ -21,7 +30,7 @@ export default function FamiliesSlider({ items }: FamiliesSliderProps) {
       <div className="relative flex flex-col gap-8 lg:grid lg:grid-cols-[52%_48%] lg:items-center lg:gap-10 lg:px-8">
         <button
           aria-label="Previous"
-          className="absolute left-[-52px] top-1/2 hidden -translate-y-1/2 text-white/85 lg:block"
+          className="absolute left-[-52px] top-1/2 hidden -translate-y-1/2 text-white/85 lg:block hover:cursor-pointer"
           onClick={prev}
         >
           <ChevronLeft className="h-12 w-12" strokeWidth={1.8} />
@@ -32,12 +41,12 @@ export default function FamiliesSlider({ items }: FamiliesSliderProps) {
             <img
               src={item.metadata.image.url}
               alt={item.metadata.item_header}
-              className="max-h-full max-w-full object-contain rounded-[36px]"
+              className={`max-h-full max-w-full object-contain rounded-[36px] transition-opacity duration-200 ${fade ? 'opacity-100' : 'opacity-0'}`}
             />
           )}
         </div>
 
-        <div className="pr-2">
+        <div className={`pr-2 transition-opacity duration-200 ${fade ? 'opacity-100' : 'opacity-0'}`}>
           <h2 className="text-[50px] leading-[1.05] font-semibold tracking-[-0.05em] text-[#5b96a0] md:text-[48px]">
             {item.metadata.item_header}
           </h2>
@@ -51,7 +60,7 @@ export default function FamiliesSlider({ items }: FamiliesSliderProps) {
               href={item.metadata.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 rounded-[16px] bg-white px-5 py-2.5 text-[16px] leading-none font-medium text-[#5b96a0] md:text-[18px]"
+              className="mt-6 inline-flex items-center gap-2 rounded-[16px] bg-white px-5 py-2.5 text-[16px] leading-none font-medium text-[#5b96a0] md:text-[18px] hover:cursor-pointer hover:scale-105 duration-300"
             >
               <ArrowUpRight className="h-5 w-5" strokeWidth={2.2} />
               {item.metadata.link_text}
@@ -61,7 +70,7 @@ export default function FamiliesSlider({ items }: FamiliesSliderProps) {
 
         <button
           aria-label="Next"
-          className="absolute right-[-52px] top-1/2 hidden -translate-y-1/2 text-white/85 lg:block"
+          className="absolute right-[-52px] top-1/2 hidden -translate-y-1/2 text-white/85 lg:block hover:cursor-pointer"
           onClick={next}
         >
           <ChevronRight className="h-12 w-12" strokeWidth={1.8} />

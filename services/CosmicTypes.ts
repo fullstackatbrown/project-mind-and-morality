@@ -345,6 +345,15 @@ export interface HomePage {
     logo: CosmicMedia;
     lab_header: string;
     lab_description: string;
+    bottom_text1: string;
+    bottom_page_link1: string;
+    bottom_image1: CosmicMedia;
+    bottom_text2: string;
+    bottom_page_link2: string;
+    bottom_image2: CosmicMedia;
+    bottom_text3: string;
+    bottom_page_link3: string;
+    bottom_image3: CosmicMedia;
   }
 }
 
@@ -393,7 +402,7 @@ export interface GetInvolvedStudentsPage {
     image2 : CosmicMedia;
     graduates_header: string;
     graduates_subheader: string;
-    graduate_description: string; // HTML string
+    graduates_description: string; // HTML string
     image3 : CosmicMedia;
   }
 }
