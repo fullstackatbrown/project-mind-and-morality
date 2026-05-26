@@ -67,43 +67,45 @@ export default function ContactUs() {
         }
       `}</style>
       <section className="max-w-3xl w-full px-8 py-16">
-        <h1 className="text-4xl text-teal-600 text-center font-semibold mb-12">
+        <h1 className="text-[36px] md:text-[50px] font-bold tracking-[-0.02em] leading-[1.1] text-[#459A9F] text-center mb-12">
           Contact Us
         </h1>
-        <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
-          <div className="flex gap-8">
-            <div className="field">
-              <input
-                type="text"
-                placeholder="First Name"
-                value={firstName}
-                onChange={e => setFirstName(e.target.value)}
-                required
-                disabled={submitting}
-              />
+        <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+          <div className="bg-[#c9eef0] rounded-3xl p-5 flex flex-col gap-4">
+            <div className="flex gap-4">
+              <div className="field flex-1">
+                <input
+                  type="text"
+                  placeholder="First Name*"
+                  value={firstName}
+                  onChange={e => setFirstName(e.target.value)}
+                  required
+                  disabled={submitting}
+                />
+              </div>
+              <div className="field flex-1">
+                <input
+                  type="text"
+                  placeholder="Last Name*"
+                  value={lastName}
+                  onChange={e => setLastName(e.target.value)}
+                  required
+                  disabled={submitting}
+                />
+              </div>
             </div>
             <div className="field">
               <input
-                type="text"
-                placeholder="Last Name"
-                value={lastName}
-                onChange={e => setLastName(e.target.value)}
+                type="email"
+                placeholder="Email*"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
                 required
                 disabled={submitting}
               />
             </div>
           </div>
-          <div className="field">
-            <input
-              type="email"
-              placeholder="Email*"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              required
-              disabled={submitting}
-            />
-          </div>
-          <div className="bg-[#c9eef0] rounded-3xl p-5">
+          <div className="bg-white border-2 border-[#c9eef0] rounded-3xl p-5">
             <textarea
               rows={7}
               placeholder="Message"

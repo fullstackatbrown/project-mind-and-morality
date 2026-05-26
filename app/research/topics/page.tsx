@@ -6,7 +6,7 @@ export default async function ResearchTopicsPage() {
   const data = await cosmic.getResearchTopicsPage();
   if (!data) {
     return (
-      <main className="min-h-screen w-full bg-[#F5F5F5] flex flex-col items-center justify-center">
+      <main className="min-h-screen w-full bg-white flex flex-col items-center justify-center">
         <div className="text-2xl text-red-600">
           Failed to load research topics.
         </div>
@@ -15,7 +15,7 @@ export default async function ResearchTopicsPage() {
   }
   const [topicsPage, questions] = data;
   return (
-    <main className="min-h-screen w-full bg-[#F5F5F5] flex flex-col items-center">
+    <main className="min-h-screen w-full bg-white flex flex-col items-center">
       <style>{`
                 .orange-text {
                     color: #E79121;
@@ -23,7 +23,7 @@ export default async function ResearchTopicsPage() {
             `}</style>
 
       <section className="max-w-6xl w-full px-6 pt-10 pb-14 sm:px-8 sm:pt-12 sm:pb-16 md:px-10 md:pt-14 md:pb-20 lg:px-8 lg:pt-20 lg:pb-24">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-teal-800 text-center mb-10 md:mb-16">
+        <h1 className="text-[36px] md:text-[50px] font-bold tracking-[-0.02em] leading-[1.1] text-[#459A9F] text-center mb-10 md:mb-16">
           {topicsPage.title || "Research Topics"}
         </h1>
 

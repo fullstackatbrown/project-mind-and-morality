@@ -1,15 +1,8 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { DM_Sans } from "next/font/google";
 import { useEffect, useState } from "react";
-import CosmicServices from "@/services/CosmicServices";
 import { GetInvolvedStudentsPage as GetInvolvedStudentsPageType } from "@/services/CosmicTypes";
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "700", "900"],
-});
 
 export default function GetInvolvedStudentsPage() {
   const [data, setData] = useState<GetInvolvedStudentsPageType | null>(null);
@@ -37,7 +30,7 @@ export default function GetInvolvedStudentsPage() {
   if (loading) {
     return (
       <main
-        className={`${dmSans.className} w-full overflow-x-hidden bg-white text-[#459a9f]`}
+        className="w-full overflow-x-hidden bg-white text-[#459A9F]"
       >
         <div className="flex h-[60vh] items-center justify-center">
           <span className="text-lg font-bold">Loading...</span>
@@ -49,7 +42,7 @@ export default function GetInvolvedStudentsPage() {
   if (error) {
     return (
       <main
-        className={`${dmSans.className} w-full overflow-x-hidden bg-white text-[#459a9f]`}
+        className="w-full overflow-x-hidden bg-white text-[#459A9F]"
       >
         <div className="flex h-[60vh] items-center justify-center">
           <span className="text-lg font-bold text-red-500">{error}</span>
@@ -61,7 +54,7 @@ export default function GetInvolvedStudentsPage() {
   if (!data) {
     return (
       <main
-        className={`${dmSans.className} w-full overflow-x-hidden bg-white text-[#459a9f]`}
+        className="w-full overflow-x-hidden bg-white text-[#459A9F]"
       >
         <div className="flex h-[60vh] items-center justify-center">
           <span className="text-lg font-bold text-red-500">
@@ -76,7 +69,7 @@ export default function GetInvolvedStudentsPage() {
 
   return (
     <main
-      className={`${dmSans.className} w-full overflow-x-hidden bg-white text-[#459a9f]`}
+      className="w-full overflow-x-hidden bg-white text-[#459A9F]"
     >
       {/* Mobile layout */}
       <div className="mx-auto box-border w-full max-w-[402px] px-[10%] pb-12 pt-10 md:hidden">
@@ -174,7 +167,7 @@ export default function GetInvolvedStudentsPage() {
 
       {/* Desktop layout */}
       <div className="mx-auto hidden max-w-[1175px] px-6 pb-24 pt-14 md:block md:px-8 md:pb-28 lg:px-0 lg:pt-[52px]">
-        <h1 className="mb-20 text-center text-[50px] font-black leading-[1.1] tracking-[-0.02em] text-[#3f97a4]">
+        <h1 className="mb-20 text-center text-[50px] font-bold leading-[1.1] tracking-[-0.02em] text-[#459A9F]">
           {data.title || "Get Involved for Students"}
         </h1>
 
@@ -183,11 +176,11 @@ export default function GetInvolvedStudentsPage() {
             <h2 className="mb-[14px] text-[40px] font-black leading-[1.05] tracking-[-0.02em] text-[#E79121]">
               {meta.undergrads_header}
             </h2>
-            <h3 className="mb-4 text-[30px] font-black leading-[1.1] text-[#3f97a4]">
+            <h3 className="mb-4 text-[30px] font-black leading-[1.1] text-[#459A9F]">
               {meta.undergrads_subheader1}
             </h3>
 
-            <div className="space-y-[30px] text-[22px] font-medium leading-[36px] text-[#3f97a4]">
+            <div className="space-y-[30px] text-[22px] font-medium leading-[36px] text-[#459A9F]">
               <div
                 className="max-w-[616px]"
                 dangerouslySetInnerHTML={{
@@ -215,11 +208,11 @@ export default function GetInvolvedStudentsPage() {
 
         <section className="mb-20 grid gap-8 md:grid-cols-[615px_500px] md:items-start md:justify-center md:gap-[60px]">
           <div>
-            <h3 className="mb-4 text-[30px] font-black leading-[1.1] text-[#3f97a4]">
+            <h3 className="mb-4 text-[30px] font-black leading-[1.1] text-[#459A9F]">
               {meta.undergrads_subheader2}
             </h3>
 
-            <div className="space-y-[28px] text-[22px] font-medium leading-[36px] text-[#3f97a4]">
+            <div className="space-y-[28px] text-[22px] font-medium leading-[36px] text-[#459A9F]">
               <div
                 className="max-w-[615px]"
                 dangerouslySetInnerHTML={{
@@ -228,7 +221,7 @@ export default function GetInvolvedStudentsPage() {
               />
             </div>
 
-            <div className="mt-8 h-[205px] w-[595px] rounded-[40px] bg-[#bcf1f5] px-11 py-7 text-[22px] font-medium leading-[36px] text-[#3f97a4]">
+            <div className="mt-8 h-[205px] w-[595px] rounded-[40px] bg-[#bcf1f5] px-11 py-7 text-[22px] font-medium leading-[36px] text-[#459A9F]">
               <div
                 dangerouslySetInnerHTML={{ __html: meta.undergrads_textbox }}
               />
@@ -255,11 +248,11 @@ export default function GetInvolvedStudentsPage() {
             <h2 className="mb-[14px] text-[40px] font-black leading-[1.05] tracking-[-0.02em] text-[#E79121]">
               {meta.graduates_header}
             </h2>
-            <h3 className="mb-4 text-[30px] font-black leading-[1.1] text-[#3f97a4]">
+            <h3 className="mb-4 text-[30px] font-black leading-[1.1] text-[#459A9F]">
               {meta.graduates_subheader}
             </h3>
 
-            <div className="max-w-[615px] text-[22px] font-medium leading-[36px] text-[#3f97a4]">
+            <div className="max-w-[615px] text-[22px] font-medium leading-[36px] text-[#459A9F]">
               <span
                 dangerouslySetInnerHTML={{ __html: meta.graduates_description }}
               />

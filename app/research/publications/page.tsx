@@ -117,7 +117,7 @@ export default function PublicationsPage() {
   return (
     <main className="min-h-screen bg-[#FFFFFF] w-full px-6 py-10 sm:px-8 sm:py-12 md:px-10 md:py-14 lg:px-12 lg:py-16">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-center text-[#459A9F] font-semibold text-[32px] leading-tight sm:text-[38px] md:text-[42px] mb-6 md:mb-7">
+        <h1 className="text-center text-[#459A9F] font-bold text-[36px] leading-[1.1] tracking-[-0.02em] md:text-[50px] mb-6 md:mb-7">
           Research Publications
         </h1>
 

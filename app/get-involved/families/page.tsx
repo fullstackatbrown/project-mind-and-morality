@@ -1,15 +1,8 @@
 "use client"
 
-import { DM_Sans } from "next/font/google"
 import { useState, useEffect } from "react";
 import FamiliesSlider from "@/app/components/FamiliesSlider";
 import { GetInvolvedFamiliesPage } from "@/services/CosmicTypes";
-
-const dmSans = DM_Sans({
-	subsets: ["latin"],
-	weight: ["400", "500", "600", "700"],
-})
-
 
 export default function GetInvolvedFamilies() {
   const [pageData, setPageData] = useState<GetInvolvedFamiliesPage | null>(null);
@@ -33,10 +26,10 @@ export default function GetInvolvedFamilies() {
   }, []);
 
   return (
-    <main className={`${dmSans.className} w-full min-h-screen bg-[#f4f4f2] pt-16 pb-24`}>
+    <main className="w-full min-h-screen bg-white pt-16 pb-24">
       <section className="mx-auto w-full max-w-[1180px] px-6 md:px-10">
         <header className="text-center">
-          <h1 className="text-[34px] leading-[1.15] font-semibold tracking-[-0.02em] text-[#5b96a0] md:text-[40px]">
+          <h1 className="text-[36px] leading-[1.1] font-bold tracking-[-0.02em] text-[#459A9F] md:text-[50px]">
 			{pageData?.title}
           </h1>
           <p className="mt-7 text-[24px] leading-[1.2] font-semibold tracking-[-0.01em] text-[#cf8c2f] md:text-[30px]">

@@ -2,17 +2,17 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #459A9F;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-dm-sans);
 }
 
 body {
   background: #ffffff;
-  font-family: Arial, Helvetica, sans-serif;
+  color: #459A9F;
+  font-family: var(--font-dm-sans), Arial, Helvetica, sans-serif;
 }

@@ -5,31 +5,31 @@ export default function Footer() {
   return (
     <footer className="w-full overflow-hidden bg-[linear-gradient(180deg,transparent_0%,#F9C85F_100%)]">
       <div className="mx-auto w-full max-w-[1512px]">
-        <div className="px-6 pb-5 pt-8 text-[#3F97A4] md:hidden">
-          <div className="text-[32px] font-[400] leading-[1.25]">
+        <div className="px-6 pb-5 pt-8 text-[#459A9F] md:hidden">
+          <div className="text-[20px] font-[400] leading-[30px]">
             <p>190 Thayer Street, Providence, RI 02912</p>
             <p>mindmoralitylab@brown.edu</p>
           </div>
-          <p className="mt-4 text-[36px] font-[400] leading-none">+1 (401) 863 3921</p>
+          <p className="mt-4 text-[20px] font-[400] leading-[30px]">+1 (401) 863 3921</p>
           <div className="mt-5 flex items-center justify-between gap-4">
-            <p className="text-[32px] font-[400] leading-none">© Mind and Morality Lab 2026</p>
+            <p className="text-[20px] font-[400] leading-[30px]">© Mind and Morality Lab 2026</p>
             <div className="flex items-center gap-5">
               <Link href="https://www.instagram.com/mindmoralitylab/" aria-label="Visit our Instagram page">
                 <Image
                   src="/insta.png"
                   alt="Instagram"
-                  width={32}
-                  height={32}
-                  className="h-8 w-8 object-contain"
+                  width={24}
+                  height={24}
+                  className="h-6 w-6 object-contain"
                 />
               </Link>
               <Link href="https://www.facebook.com/people/Mind-and-Morality-Lab/61572253238828/" aria-label="Visit our Facebook page">
                 <Image
                   src="/facebook.png"
                   alt="Facebook"
-                  width={32}
-                  height={32}
-                  className="h-8 w-8 object-contain"
+                  width={24}
+                  height={24}
+                  className="h-6 w-6 object-contain"
                 />
               </Link>
               <Link
@@ -39,9 +39,9 @@ export default function Footer() {
                 <Image
                   src="/mail.png"
                   alt="Email"
-                  width={32}
-                  height={32}
-                  className="h-8 w-8 object-contain"
+                  width={24}
+                  height={24}
+                  className="h-6 w-6 object-contain"
                 />
               </Link>
             </div>
@@ -50,11 +50,11 @@ export default function Footer() {
 
         <div className="relative hidden h-[480px] px-[88px] md:block">
           <div className="absolute left-[95px] top-[237px] w-[480px]">
-            <h2 className="mb-[26px] text-[36px] font-[700] leading-none text-[#3F97A4]">
+            <h2 className="mb-[26px] text-[36px] font-[700] leading-none text-[#459A9F]">
               About Us
             </h2>
 
-            <p className="max-w-[430px] text-[20px] font-[400] leading-[1.45] text-[#3F97A4]">
+            <p className="max-w-[430px] text-[20px] font-[400] leading-[30px] text-[#459A9F]">
               The Mind and Morality Lab is part of{" "}
               <Link href="#" className="underline underline-offset-[2px]">
                 Brown Developmental Labs
@@ -75,9 +75,9 @@ export default function Footer() {
               <Image
                 src="/insta.png"
                 alt="Instagram"
-                width={40}
-                height={40}
-                className="h-[40px] w-[40px] object-contain"
+                width={28}
+                height={28}
+                className="h-[28px] w-[28px] object-contain"
               />
             </Link>
 
@@ -88,9 +88,9 @@ export default function Footer() {
               <Image
                 src="/facebook.png"
                 alt="Facebook"
-                width={40}
-                height={40}
-                className="h-[40px] w-[40px] object-contain"
+                width={28}
+                height={28}
+                className="h-[28px] w-[28px] object-contain"
               />
             </Link>
 
@@ -98,25 +98,25 @@ export default function Footer() {
               <Image
                 src="/mail.png"
                 alt="Email"
-                width={40}
-                height={40}
-                className="h-[40px] w-[40px] object-contain"
+                width={28}
+                height={28}
+                className="h-[28px] w-[28px] object-contain"
               />
             </Link>
           </div>
 
           <div className="absolute right-[95px] top-[237px] w-[385px] text-left">
-            <h2 className="mb-[28px] text-[36px] font-[700] leading-none text-[#3F97A4]">
+            <h2 className="mb-[28px] text-[36px] font-[700] leading-none text-[#459A9F]">
               Contact Us
             </h2>
 
-            <div className="text-[20px] font-[400] leading-[1.5] text-[#3F97A4]">
+            <div className="text-[20px] font-[400] leading-[30px] text-[#459A9F]">
               <p>190 Thayer Street, Providence, RI 02912</p>
               <p>mindmoralitylab@brown.edu</p>
               <p>+1(401) 863 3921</p>
             </div>
 
-            <p className="mt-[18px] text-[20px] font-[400] leading-none text-[#3F97A4]">
+            <p className="mt-[18px] text-[20px] font-[400] leading-[30px] text-[#459A9F]">
               © Mind and Morality Lab 2026
             </p>
           </div>

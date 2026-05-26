@@ -22,8 +22,30 @@ export default function Home() {
   // Clone of first slide appended so we can slide into it, then snap back invisibly
   const extendedSlides = [...slides, slides[0]];
 
+  const [home, setHome] = useState<HomePage | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
   const [current, setCurrent] = useState(0);
   const [animated, setAnimated] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("/api/home");
+        if (!res.ok) throw new Error("Failed to fetch");
+        const data = await res.json();
+        setHome(data);
+        setError("");
+      } catch (err) {
+        setError("Could not load home page content. Please try again later.");
+        setHome(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -52,6 +74,24 @@ export default function Home() {
   }, [animated]);
 
   const activeIndex = current === extendedSlides.length - 1 ? 0 : current;
+
+  if (loading) {
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center">
+        <span className="text-lg font-bold text-[#459A9F]">Loading...</span>
+      </div>
+    );
+  }
+
+  if (error || !home) {
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center">
+        <span className="text-lg font-bold text-red-500">
+          {error || "Failed to load content."}
+        </span>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center">

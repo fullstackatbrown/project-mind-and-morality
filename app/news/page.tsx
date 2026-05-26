@@ -1,4 +1,4 @@
-'use client;'
+"use client";
 import NewsItem from "../components/NewsItem";
 import { useState, useEffect } from "react";
 
@@ -53,16 +53,16 @@ export default function NewsPage() {
 
   return (
     <main className="mx-auto max-w-[1214px] px-6 pb-20">
-      <h1 className="mt-10 mb-8 text-center text-3xl font-bold text-[#3F97A4]">
+      <h1 className="mt-10 mb-8 text-center text-[36px] md:text-[50px] font-bold tracking-[-0.02em] leading-[1.1] text-[#459A9F]">
         News & Announcements
       </h1>
 
       {error && <div className="text-red-600 text-center mb-4">{error}</div>}
       <div className="space-y-12 min-h-[300px]">
         {loading ? (
-          <div className="text-center text-[#3F97A4]">Loading...</div>
+          <div className="text-center text-[#459A9F]">Loading...</div>
         ) : news.length === 0 ? (
-          <div className="text-center text-[#3F97A4]">No news found.</div>
+          <div className="text-center text-[#459A9F]">No news found.</div>
         ) : (
           news.map((item) => (
             <NewsItem
@@ -76,15 +76,15 @@ export default function NewsPage() {
       </div>
       <div className="flex justify-center gap-[10%] items-center mt-12">
         <button
-          className="rounded-full px-6 py-2 text-sm font-medium border-2 border-[#3F97A4] text-[#3F97A4] duration-300 hover:scale-110 disabled:opacity-50"
+          className="rounded-full px-6 py-2 text-sm font-medium border-2 border-[#459A9F] text-[#459A9F] duration-300 hover:scale-110 disabled:opacity-50"
           onClick={() => setPage((p) => Math.max(0, p - 1))}
           disabled={page === 0 || loading}
         >
           Previous
         </button>
-        <span className="text-[#3F97A4] font-semibold">Page {page + 1}</span>
+        <span className="text-[#459A9F] font-semibold">Page {page + 1}</span>
         <button
-          className="rounded-full px-6 py-2 text-sm font-medium border-2 border-[#3F97A4] text-[#3F97A4] duration-300 hover:scale-110 disabled:opacity-50"
+          className="rounded-full px-6 py-2 text-sm font-medium border-2 border-[#459A9F] text-[#459A9F] duration-300 hover:scale-110 disabled:opacity-50"
           onClick={() => setPage((p) => p + 1)}
           disabled={!hasNext || loading}
         >
