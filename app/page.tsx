@@ -35,18 +35,11 @@ const formatPostDate = (iso: string) =>
   });
 
 export default function Home() {
-  const slides = ["/slideshow1.png", "/slideshow1.png", "/slideshow1.png"];
-  // Clone of first slide appended so we can slide into it, then snap back invisibly
-  const extendedSlides = [...slides, slides[0]];
-
   const [home, setHome] = useState<HomePage | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   const [instagramPosts, setInstagramPosts] = useState<BeholdPost[] | null>(null);
-
-  const [current, setCurrent] = useState(0);
-  const [animated, setAnimated] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,34 +68,6 @@ export default function Home() {
       .catch(() => setInstagramPosts(null));
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrent((prev) => prev + 1);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    if (current === extendedSlides.length - 1) {
-      // After sliding into the clone, snap back to real first slide without animation
-      const timer = setTimeout(() => {
-        setAnimated(false);
-        setCurrent(0);
-      }, 700);
-      return () => clearTimeout(timer);
-    }
-  }, [current]);
-
-  useEffect(() => {
-    if (!animated) {
-      // Re-enable animation after the snap
-      const timer = setTimeout(() => setAnimated(true), 50);
-      return () => clearTimeout(timer);
-    }
-  }, [animated]);
-
-  const activeIndex = current === extendedSlides.length - 1 ? 0 : current;
-
   if (loading) {
     return (
       <div className="min-h-screen w-full flex items-center justify-center">
@@ -130,28 +95,7 @@ export default function Home() {
     `}</style>
 
       <section className="max-w-6xl w-full flex flex-col md:flex-row gap-16 py-16 px-8 items-center">
-        <div className="relative w-full aspect-video md:w-[420px] md:h-[520px] md:aspect-auto flex-shrink-0 rounded-3xl overflow-hidden">
-          <div
-            className={`flex h-full ${animated ? "transition-transform duration-900 ease-in-out" : ""}`}
-            style={{ transform: `translateX(-${current * (100 / extendedSlides.length)}%)`, width: `${extendedSlides.length * 100}%` }}
-          >
-            {extendedSlides.map((slide, i) => (
-              <div key={i} className="relative h-full flex-shrink-0" style={{ width: `${100 / extendedSlides.length}%` }}>
-                <Image src={slide} alt="Lab photo" fill className="object-cover" />
-              </div>
-            ))}
-          </div>
-
-          <div className="absolute bottom-3 w-full flex justify-center gap-2 z-10">
-            {slides.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrent(i)}
-                className={`w-2 h-2 rounded-full transition-colors duration-300 ${i === activeIndex ? "bg-[#F2AD3D]" : "bg-[#459A9F]"}`}
-              />
-            ))}
-          </div>
-        </div>
+        <Slideshow images={home.metadata.slideshow_images} />
 
         <div className="max-w-lg">
           <img src="./logo.png" className="w-full mb-4"></img>
