@@ -17,6 +17,23 @@ const page_to_link = new Map([
   ["students", "/get-involved/students"],
 ]);
 
+type BeholdPost = {
+  id: string;
+  timestamp: string;
+  permalink: string;
+  mediaType: "IMAGE" | "VIDEO" | "CAROUSEL_ALBUM";
+  mediaUrl: string;
+  thumbnailUrl?: string | null;
+  caption?: string;
+};
+
+const formatPostDate = (iso: string) =>
+  new Date(iso).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
 export default function Home() {
   const slides = ["/slideshow1.png", "/slideshow1.png", "/slideshow1.png"];
   // Clone of first slide appended so we can slide into it, then snap back invisibly
@@ -25,6 +42,8 @@ export default function Home() {
   const [home, setHome] = useState<HomePage | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const [instagramPosts, setInstagramPosts] = useState<BeholdPost[] | null>(null);
 
   const [current, setCurrent] = useState(0);
   const [animated, setAnimated] = useState(true);
@@ -45,6 +64,15 @@ export default function Home() {
       }
     };
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    const feedUrl = process.env.NEXT_PUBLIC_BEHOLD_FEED_URL;
+    if (!feedUrl) return;
+    fetch(feedUrl)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => setInstagramPosts(data?.posts ?? null))
+      .catch(() => setInstagramPosts(null));
   }, []);
 
   useEffect(() => {
@@ -148,18 +176,27 @@ export default function Home() {
             News & Announcements
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-            <InstagramPostCard
-              caption="Excited to share our latest findings on moral development in children!"
-              likes={142}
-            />
-            <InstagramPostCard
-              caption="We're hiring a Lab Manager — come join our team at Brown University!"
-              likes={98}
-            />
-            <InstagramPostCard
-              caption="New publication out now. Check the link in our bio for the full paper."
-              likes={211}
-            />
+            {instagramPosts && instagramPosts.length >= 3 ? (
+              instagramPosts.slice(0, 3).map((post) => (
+                <InstagramPostCard
+                  key={post.id}
+                  imageUrl={
+                    post.mediaType === "VIDEO"
+                      ? post.thumbnailUrl ?? undefined
+                      : post.mediaUrl
+                  }
+                  caption={post.caption ?? ""}
+                  date={formatPostDate(post.timestamp)}
+                  postUrl={post.permalink}
+                />
+              ))
+            ) : (
+              <>
+                <InstagramPostCard caption="Excited to share our latest findings on moral development in children!" />
+                <InstagramPostCard caption="We're hiring a Lab Manager — come join our team at Brown University!" />
+                <InstagramPostCard caption="New publication out now. Check the link in our bio for the full paper." />
+              </>
+            )}
           </div>
         </div>
       </section>
