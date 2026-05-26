@@ -98,18 +98,18 @@ export default function Home() {
         <Slideshow images={home.metadata.slideshow_images} />
 
         <div className="max-w-lg">
-          <img src="./logo.png" className="w-full mb-4"></img>
+          <img
+            src={home.metadata.logo.imgix_url || home.metadata.logo.url}
+            alt="Mind & Morality Lab logo"
+            className="w-full mb-4"
+          />
 
           <p className="text-xl font-bold text-[#459A9F] mb-4">
-            The Mind & Morality Lab is a developmental psychology lab at Brown
-            University in the Department of Cognitive & Psychological Sciences.
+            {home.metadata.lab_header}
           </p>
 
           <p className="text-xl text-[#459A9F]">
-            We focus on understanding the psychological roots of human morality
-            through an interdisciplinary lens, drawing on philosophical, legal,
-            and psychological perspectives in our work with both children and
-            adults.
+            {home.metadata.lab_description}
           </p>
         </div>
       </section>
