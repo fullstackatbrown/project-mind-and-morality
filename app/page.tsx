@@ -17,17 +17,29 @@ const page_to_link = new Map([
   ["students", "/get-involved/students"],
 ]);
 
-export default function Home() {
-  const slides = ["/slideshow1.png", "/slideshow1.png", "/slideshow1.png"];
-  // Clone of first slide appended so we can slide into it, then snap back invisibly
-  const extendedSlides = [...slides, slides[0]];
+type BeholdPost = {
+  id: string;
+  timestamp: string;
+  permalink: string;
+  mediaType: "IMAGE" | "VIDEO" | "CAROUSEL_ALBUM";
+  mediaUrl: string;
+  thumbnailUrl?: string | null;
+  caption?: string;
+};
 
+const formatPostDate = (iso: string) =>
+  new Date(iso).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+export default function Home() {
   const [home, setHome] = useState<HomePage | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const [current, setCurrent] = useState(0);
-  const [animated, setAnimated] = useState(true);
+  const [instagramPosts, setInstagramPosts] = useState<BeholdPost[] | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,32 +60,13 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrent((prev) => prev + 1);
-    }, 4000);
-    return () => clearInterval(interval);
+    const feedUrl = process.env.NEXT_PUBLIC_BEHOLD_FEED_URL;
+    if (!feedUrl) return;
+    fetch(feedUrl)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => setInstagramPosts(data?.posts ?? null))
+      .catch(() => setInstagramPosts(null));
   }, []);
-
-  useEffect(() => {
-    if (current === extendedSlides.length - 1) {
-      // After sliding into the clone, snap back to real first slide without animation
-      const timer = setTimeout(() => {
-        setAnimated(false);
-        setCurrent(0);
-      }, 700);
-      return () => clearTimeout(timer);
-    }
-  }, [current]);
-
-  useEffect(() => {
-    if (!animated) {
-      // Re-enable animation after the snap
-      const timer = setTimeout(() => setAnimated(true), 50);
-      return () => clearTimeout(timer);
-    }
-  }, [animated]);
-
-  const activeIndex = current === extendedSlides.length - 1 ? 0 : current;
 
   if (loading) {
     return (
@@ -102,42 +95,21 @@ export default function Home() {
     `}</style>
 
       <section className="max-w-6xl w-full flex flex-col md:flex-row gap-16 py-16 px-8 items-center">
-        <div className="relative w-full aspect-video md:w-[420px] md:h-[520px] md:aspect-auto flex-shrink-0 rounded-3xl overflow-hidden">
-          <div
-            className={`flex h-full ${animated ? "transition-transform duration-900 ease-in-out" : ""}`}
-            style={{ transform: `translateX(-${current * (100 / extendedSlides.length)}%)`, width: `${extendedSlides.length * 100}%` }}
-          >
-            {extendedSlides.map((slide, i) => (
-              <div key={i} className="relative h-full flex-shrink-0" style={{ width: `${100 / extendedSlides.length}%` }}>
-                <Image src={slide} alt="Lab photo" fill className="object-cover" />
-              </div>
-            ))}
-          </div>
-
-          <div className="absolute bottom-3 w-full flex justify-center gap-2 z-10">
-            {slides.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrent(i)}
-                className={`w-2 h-2 rounded-full transition-colors duration-300 ${i === activeIndex ? "bg-[#F2AD3D]" : "bg-[#459A9F]"}`}
-              />
-            ))}
-          </div>
-        </div>
+        <Slideshow images={home.metadata.slideshow_images} />
 
         <div className="max-w-lg">
-          <img src="./logo.png" className="w-full mb-4"></img>
+          <img
+            src={home.metadata.logo.imgix_url || home.metadata.logo.url}
+            alt="Mind & Morality Lab logo"
+            className="w-full mb-4"
+          />
 
           <p className="text-xl font-bold text-[#459A9F] mb-4">
-            The Mind & Morality Lab is a developmental psychology lab at Brown
-            University in the Department of Cognitive & Psychological Sciences.
+            {home.metadata.lab_header}
           </p>
 
           <p className="text-xl text-[#459A9F]">
-            We focus on understanding the psychological roots of human morality
-            through an interdisciplinary lens, drawing on philosophical, legal,
-            and psychological perspectives in our work with both children and
-            adults.
+            {home.metadata.lab_description}
           </p>
         </div>
       </section>
@@ -148,18 +120,27 @@ export default function Home() {
             News & Announcements
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-            <InstagramPostCard
-              caption="Excited to share our latest findings on moral development in children!"
-              likes={142}
-            />
-            <InstagramPostCard
-              caption="We're hiring a Lab Manager — come join our team at Brown University!"
-              likes={98}
-            />
-            <InstagramPostCard
-              caption="New publication out now. Check the link in our bio for the full paper."
-              likes={211}
-            />
+            {instagramPosts && instagramPosts.length >= 3 ? (
+              instagramPosts.slice(0, 3).map((post) => (
+                <InstagramPostCard
+                  key={post.id}
+                  imageUrl={
+                    post.mediaType === "VIDEO"
+                      ? post.thumbnailUrl ?? undefined
+                      : post.mediaUrl
+                  }
+                  caption={post.caption ?? ""}
+                  date={formatPostDate(post.timestamp)}
+                  postUrl={post.permalink}
+                />
+              ))
+            ) : (
+              <>
+                <InstagramPostCard caption="Excited to share our latest findings on moral development in children!" />
+                <InstagramPostCard caption="We're hiring a Lab Manager — come join our team at Brown University!" />
+                <InstagramPostCard caption="New publication out now. Check the link in our bio for the full paper." />
+              </>
+            )}
           </div>
         </div>
       </section>

@@ -58,7 +58,7 @@ export default function Slideshow({ images }: SlideshowProps) {
           <button
             key={i}
             onClick={() => setCurrent(i)}
-            className={`w-2 h-2 rounded-full ${i === current ? "bg-teal-500" : "bg-gray-300"}`}
+            className={`w-2 h-2 rounded-full transition-colors duration-300 ${i === current ? "bg-[#F2AD3D]" : "bg-[#459A9F]"}`}
             aria-label={`Go to slide ${i + 1}`}
           />
         ))}

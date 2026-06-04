@@ -1,4 +1,4 @@
-import { TeamMember } from "@/services/CosmicServices";
+import { TeamMember } from "@/services/CosmicTypes";
 
 type Props = {
   member: TeamMember;
