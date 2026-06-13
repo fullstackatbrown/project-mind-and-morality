@@ -34,8 +34,15 @@ jobs:
               echo "::error::$key was NOT pulled from the Vercel project. It is not set for the Preview environment (or the token/org scope is wrong)."
               exit 1
             fi
+            val=$(grep "^$key=" "$envfile" | head -n1 | cut -d= -f2-)
+            val="${val%\"}"; val="${val#\"}"; val="${val%\'}"; val="${val#\'}"
+            val=$(printf '%s' "$val" | tr -d '[:space:]')
+            if [ -z "$val" ]; then
+              echo "::error::$key is present but EMPTY in the Vercel project. Set its actual value in Vercel for the Preview environment."
+              exit 1
+            fi
           done
-          echo "All required Cosmic vars were pulled successfully."
+          echo "All required Cosmic vars were pulled and are non-empty."
       - name: Build Project Artifacts
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
