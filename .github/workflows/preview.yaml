@@ -1,11 +1,11 @@
 name: Vercel Preview Deployment
+# Only the Vercel identifiers belong here. App secrets (COSMIC_*, NEXT_PUBLIC_*)
+# must live in the Vercel project's Environment Variables so they are present at
+# BOTH build (via `vercel pull`) and runtime (injected into the deployment).
+# Putting them here only satisfies the build and silently ships broken functions.
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-  COSMIC_BUCKET_SLUG: ${{ secrets.COSMIC_BUCKET_SLUG }}
-  COSMIC_READ_KEY: ${{ secrets.COSMIC_READ_KEY }}
-  COSMIC_WRITE_KEY: ${{ secrets.COSMIC_WRITE_KEY }}
-  NEXT_PUBLIC_BEHOLD_FEED_URL: ${{ secrets.NEXT_PUBLIC_BEHOLD_FEED_URL }}
 on:
   push:
     branches-ignore:
@@ -19,6 +19,23 @@ jobs:
         run: npm install --global vercel@latest
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Verify Cosmic env vars were pulled from Vercel
+        run: |
+          envfile=$(ls .vercel/.env.preview.local .vercel/.env.local 2>/dev/null | head -n1)
+          if [ -z "$envfile" ]; then
+            echo "::error::vercel pull did not create an env file under .vercel/. Check token/org/project scope."
+            exit 1
+          fi
+          echo "Inspecting $envfile"
+          echo "Keys present in pulled Vercel env (names only, values hidden):"
+          grep -oE '^[A-Z0-9_]+' "$envfile" | sort
+          for key in COSMIC_BUCKET_SLUG COSMIC_READ_KEY COSMIC_WRITE_KEY; do
+            if ! grep -q "^$key=" "$envfile"; then
+              echo "::error::$key was NOT pulled from the Vercel project. It is not set for the Preview environment (or the token/org scope is wrong)."
+              exit 1
+            fi
+          done
+          echo "All required Cosmic vars were pulled successfully."
       - name: Build Project Artifacts
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
