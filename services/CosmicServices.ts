@@ -1,5 +1,4 @@
-import { error } from "console";
-import { cosmic } from "../lib/cosmic";
+import { cosmic, hasCosmicWriteKey } from "../lib/cosmic";
 import {
   TeamMember,
   NewsPost,
@@ -481,6 +480,11 @@ class CosmicServices {
   submitContactForm = async (
     submission: ContactFormSubmission,
   ): Promise<boolean> => {
+    if (!hasCosmicWriteKey()) {
+      console.error("Missing COSMIC_WRITE_KEY environment variable");
+      return false;
+    }
+
     try {
       await cosmic.objects.insertOne({
         type: "messages",

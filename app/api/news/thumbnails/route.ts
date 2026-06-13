@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import CosmicServices from "@/services/CosmicServices";
 
+export const dynamic = "force-dynamic";
+
 const cosmicServices = new CosmicServices();
 
 // GET /api/news/thumbnails?limit=15&page=0
@@ -11,7 +13,7 @@ export async function GET(req: Request) {
   try {
     const thumbnails = await cosmicServices.getNewsPostThumbnails(limit, page);
     return NextResponse.json({ thumbnails });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Failed to fetch news thumbnails" }, { status: 500 });
   }
 }

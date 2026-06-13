@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import CosmicServices from "@/services/CosmicServices";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const cosmic = new CosmicServices();
   const homePage = await cosmic.getHomePage();

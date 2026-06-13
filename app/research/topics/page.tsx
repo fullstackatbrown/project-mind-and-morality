@@ -1,6 +1,8 @@
 import Image from "next/image";
 import CosmicServices from "@/services/CosmicServices";
 
+export const dynamic = "force-dynamic";
+
 export default async function ResearchTopicsPage() {
   const cosmic = new CosmicServices();
   const data = await cosmic.getResearchTopicsPage();

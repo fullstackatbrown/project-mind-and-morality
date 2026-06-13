@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import CosmicServices from "@/services/CosmicServices";
 
+export const dynamic = "force-dynamic";
+
 const cosmicServices = new CosmicServices();
 
 export async function POST(req: Request) {
@@ -23,7 +25,7 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ ok: true });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import CosmicServices from "@/services/CosmicServices";
 
+export const dynamic = "force-dynamic";
+
 const cosmicServices = new CosmicServices();
 
 export async function GET() {
@@ -10,7 +12,7 @@ export async function GET() {
       return NextResponse.json({ error: "Failed to fetch publications" }, { status: 500 });
     }
     return NextResponse.json({ data });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

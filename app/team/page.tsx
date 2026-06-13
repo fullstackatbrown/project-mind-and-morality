@@ -3,6 +3,8 @@ import StaffCard from "@/components/StaffCard";
 import UndergradCard from "@/components/UndergradCard";
 import { TeamMember } from "@/services/CosmicTypes";
 
+export const dynamic = "force-dynamic";
+
 function SectionHeader({ title }: { title: string }) {
   return (
     <div className="flex items-center gap-4 mt-4 mb-4">
