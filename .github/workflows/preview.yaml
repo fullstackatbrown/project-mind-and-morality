@@ -2,10 +2,6 @@ name: Vercel Preview Deployment
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-  COSMIC_BUCKET_SLUG: ${{ secrets.COSMIC_BUCKET_SLUG }}
-  COSMIC_READ_KEY: ${{ secrets.COSMIC_READ_KEY }}
-  COSMIC_WRITE_KEY: ${{ secrets.COSMIC_WRITE_KEY }}
-  NEXT_PUBLIC_BEHOLD_FEED_URL: ${{ secrets.NEXT_PUBLIC_BEHOLD_FEED_URL }}
 on:
   push:
     branches-ignore:
